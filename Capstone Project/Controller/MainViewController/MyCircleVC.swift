@@ -16,7 +16,8 @@ class MyCircleVC: UIViewController {
 
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(MyCircleTableViewCell.self,
+                           forCellReuseIdentifier: MyCircleTableViewCell.reuseIdentifier)
         return tableView
     }()
     
@@ -42,11 +43,15 @@ extension MyCircleVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyCircleTableViewCell.reuseIdentifier,
+                                                       for: indexPath) as? MyCircleTableViewCell else {
+            fatalError("My Circle TableView Cell Error!")
+        }
+        return cell
     }
-    
-    
 }
 extension MyCircleVC: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 }
