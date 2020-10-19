@@ -29,6 +29,8 @@ class FeedActionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(likeButton)
         contentView.addSubview(commentButton)
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.secondaryLabel.cgColor
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

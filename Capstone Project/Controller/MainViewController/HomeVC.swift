@@ -18,6 +18,8 @@ class HomeVC: UIViewController {
                            forCellReuseIdentifier: FeedPostTableViewCell.reuseIdentifier)
         tableView.register(FeedActionTableViewCell.self,
                            forCellReuseIdentifier: FeedActionTableViewCell.reuseIdentifier)
+        tableView.register(FeedCommentTableViewCell.self,
+                           forCellReuseIdentifier: FeedCommentTableViewCell.reuseIdentifier)
         return tableView
     }()
     
@@ -48,7 +50,7 @@ extension HomeVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print(section)
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,6 +72,12 @@ extension HomeVC: UITableViewDataSource {
                 fatalError("FeedActionTableViewCell")
             }
             return cell
+        } else if indexPath.row == 3 {
+            guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedCommentTableViewCell.reuseIdentifier,
+                                                               for: indexPath) as? FeedCommentTableViewCell else {
+                fatalError("FeedCommentTableViewCell Error")
+            }
+            return cell
         }
         return UITableViewCell()
         
@@ -81,7 +89,12 @@ extension HomeVC: UITableViewDataSource {
             return tableView.width
         } else if indexPath.row == 2 {
             return 60
+        } else if indexPath.row == 3 {
+            return 80
         }
         return 0
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
 }

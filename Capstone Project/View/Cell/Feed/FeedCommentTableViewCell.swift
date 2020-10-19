@@ -12,13 +12,32 @@ class FeedCommentTableViewCell: UITableViewCell {
     
     private let userName: UILabel = {
         let label = UILabel()
-        
+        label.numberOfLines = 1
+        label.text = "holuck"
+        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.textColor = .label
+        return label
+    }()
+    
+    private let comments: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.text = "Good Post!"
+        label.textColor = .label
         return label
     }()
     
     //MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(userName)
+        contentView.addSubview(comments)
+        contentView.layer.masksToBounds = true
+        contentView.layer.borderWidth = 2
+        contentView.layer.borderColor = UIColor.secondaryLabel.cgColor
+        contentView.clipsToBounds = false
+        contentView.layer.cornerRadius = 15
+        contentView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,5 +45,7 @@ class FeedCommentTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        userName.frame = CGRect(x: 8, y: 10, width: contentView.width / 4, height: contentView.height / 4)
+        comments.frame = CGRect(x: userName.right + 4, y: 10, width: contentView.width - userName.width, height: contentView.height / 4)
     }
 }
