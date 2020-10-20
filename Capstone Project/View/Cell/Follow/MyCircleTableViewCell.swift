@@ -30,6 +30,7 @@ class MyCircleTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(circlePhoto)
         contentView.addSubview(circleName)
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

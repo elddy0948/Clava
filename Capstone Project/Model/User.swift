@@ -13,8 +13,8 @@ struct User {
     let gender: gender
     let organization: String
     let birth: Date
-    let myCircle: [Circle]?
-    let followCircle: [Circle]?
+    var myCircle: [Circle]?
+    var followCircle: [Circle]?
     let join: Date
     let profilePhoto: URL?
 }

@@ -46,7 +46,7 @@ class FeedHeaderTableViewCell: UITableViewCell {
         contentView.clipsToBounds = false
         contentView.layer.cornerRadius = 15
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        contentView.layer.borderWidth = 2
+        contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.secondaryLabel.cgColor
         contentView.addSubview(profileImage)
         contentView.addSubview(profileName)

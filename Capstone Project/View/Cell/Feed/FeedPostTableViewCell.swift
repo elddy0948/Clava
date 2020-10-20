@@ -17,7 +17,7 @@ class FeedPostTableViewCell: UITableViewCell {
     
     private let postImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .yellow
+        imageView.image = UIImage(named: "test")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()

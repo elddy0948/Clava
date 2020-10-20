@@ -18,8 +18,12 @@ class MyCircleVC: UIViewController {
         let tableView = UITableView()
         tableView.register(MyCircleTableViewCell.self,
                            forCellReuseIdentifier: MyCircleTableViewCell.reuseIdentifier)
+        tableView.register(FollowTableViewCell.self,
+                           forCellReuseIdentifier: FollowTableViewCell.reuseIdentifier)
         return tableView
     }()
+    
+    private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], followCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], join: Date(), profilePhoto: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +36,6 @@ class MyCircleVC: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
-    private func mockData() {
-        let circle = Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])
-        let dumpData = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [circle], followCircle: [circle], join: Date(), profilePhoto: nil)
-    }
 }
 
 extension MyCircleVC: UITableViewDataSource {
@@ -45,25 +44,51 @@ extension MyCircleVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 70))
+        let label = UILabel(frame: CGRect(x: 2, y: 2, width: header.width, height: header.height))
+        header.addSubview(label)
+        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.textColor = .label
         if section == 0 {
-
+            label.text = "My Circle"
         } else if section == 1 {
-
+            label.text = "Follow Circle"
         }
-        return UIView()
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 70
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(section)
-        return 5
+        //section 0 ==> My Circle
+        //section 1 ==> Follow Circle
+        if section == 0 {
+            return user.myCircle?.count ?? 0
+        } else if section == 1 {
+            return user.followCircle?.count ?? 0
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyCircleTableViewCell.reuseIdentifier,
-                                                       for: indexPath) as? MyCircleTableViewCell else {
-            fatalError("My Circle TableView Cell Error!")
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MyCircleTableViewCell.reuseIdentifier,
+                                                           for: indexPath) as? MyCircleTableViewCell else {
+                fatalError("My Circle TableviewCell Error!")
+            }
+            tableView.separatorStyle = .none
+            return cell
+        } else if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: FollowTableViewCell.reuseIdentifier,
+                                                           for: indexPath) as? FollowTableViewCell else {
+                fatalError("Follow TableviewCell Error!")
+            }
+            tableView.separatorStyle = .none
+            return cell
         }
-        return cell
+        return UITableViewCell()
     }
 }
 extension MyCircleVC: UITableViewDelegate {
