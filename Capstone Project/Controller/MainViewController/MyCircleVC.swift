@@ -47,6 +47,7 @@ extension MyCircleVC: UITableViewDataSource {
         let header = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 70))
         let label = UILabel(frame: CGRect(x: 2, y: 2, width: header.width, height: header.height))
         header.addSubview(label)
+        header.backgroundColor = .secondarySystemBackground
         label.font = .systemFont(ofSize: 22, weight: .bold)
         label.textColor = .label
         if section == 0 {
