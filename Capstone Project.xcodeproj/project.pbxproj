@@ -69,6 +69,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B417560A25446F5F008BD497 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		B4660976253DE23800EFC4FE /* Follow */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +169,7 @@
 		B4EC07132539D9590087F59D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B417560A25446F5F008BD497 /* MyPage */,
 				B4660976253DE23800EFC4FE /* Follow */,
 				B4EC07182539D9AB0087F59D /* Feed */,
 			);
