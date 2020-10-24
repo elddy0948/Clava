@@ -9,7 +9,15 @@ import UIKit
 
 class MyPageVC: UIViewController {
     
+    //Collection View?
+    
     private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], followCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], join: Date(), profilePhoto: nil)
+    
+    private let collectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        
+        return collectionView
+    }()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -24,6 +32,9 @@ class MyPageVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         view.addSubview(tableView)
     }
     
@@ -91,6 +102,19 @@ extension MyPageVC: UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
+    }
+    
+    
+}
+
+
+extension MyPageVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
     }
     
     
