@@ -59,6 +59,9 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedHeaderTableViewCell else {
                 fatalError("FeedHeaderTableViewCell")
             }
+            
+            // FeedHeaderTableViewCell Delegate 채택
+            cell.delegate = self
             return cell
         } else if indexPath.row == 1 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedPostTableViewCell.reuseIdentifier,
@@ -96,5 +99,14 @@ extension HomeVC: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+}
+
+
+extension HomeVC: FeedHeaderTableViewCellDelegate {
+    func pressProfileName() {
+        let vc = CircleViewController()
+        vc.title = "DCA"
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

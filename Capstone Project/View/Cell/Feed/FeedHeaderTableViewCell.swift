@@ -13,9 +13,15 @@ import UIKit
  
  */
 
+protocol FeedHeaderTableViewCellDelegate: AnyObject {
+    func pressProfileName()
+}
+
 class FeedHeaderTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "FeedHeaderTableViewCell"
+    
+    weak var delegate: FeedHeaderTableViewCellDelegate?
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -84,5 +90,6 @@ class FeedHeaderTableViewCell: UITableViewCell {
     
     //MARK: - Actions
     @objc private func pressProfileName() {
+        delegate?.pressProfileName()
     }
 }
