@@ -16,27 +16,7 @@ class MyPageVC: UIViewController {
     
     // View For User Information
     private let uiView: UIView = {
-        let view = UIView()
-        
-        let profileImageView: UIImageView = {
-            let imageView = UIImageView()
-            imageView.backgroundColor = .red
-            return imageView
-        }()
-        
-        let userNameLabel: UILabel = {
-            let label = UILabel()
-            return label
-        }()
-        
-        let userNickNameLabel: UILabel = {
-            let label = UILabel()
-            
-            return label
-        }()
-        
-        view.addSubview(profileImageView)
-        view.addSubview(userNameLabel)
+        let view = UserInfoView()
         return view
     }()
     
@@ -54,6 +34,8 @@ class MyPageVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: nil)
 
         view.addSubview(tableView)
         view.addSubview(uiView)
@@ -61,7 +43,7 @@ class MyPageVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        uiView.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height / 3)
+        uiView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.width / 1.5)
         tableView.frame = CGRect(x: 0, y: uiView.bottom, width: view.width, height: view.height / 1.5)
     }
 

@@ -23,12 +23,13 @@ class FeedHeaderTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let profileName: UILabel = {
-        let label = UILabel()
-        label.text = "DCA"
-        label.textColor = .label
-        label.numberOfLines = 1
-        return label
+    private let profileName: UIButton = {
+        let button = UIButton()
+        button.setTitle("DCA", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = .none
+        button.contentHorizontalAlignment = .left
+        return button
     }()
     
     private let moreButton: UIButton = {
@@ -51,6 +52,9 @@ class FeedHeaderTableViewCell: UITableViewCell {
         contentView.addSubview(profileImage)
         contentView.addSubview(profileName)
         contentView.addSubview(moreButton)
+        
+        //MARK: - Add Target
+        profileName.addTarget(self, action: #selector(pressProfileName), for: .touchUpInside)
         
     }
     required init?(coder: NSCoder) {
@@ -76,5 +80,9 @@ class FeedHeaderTableViewCell: UITableViewCell {
     //MARK: - public
     public func configure(model: String) {
         
+    }
+    
+    //MARK: - Actions
+    @objc private func pressProfileName() {
     }
 }

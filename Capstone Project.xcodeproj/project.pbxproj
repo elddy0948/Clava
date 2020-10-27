@@ -17,6 +17,9 @@
 		B4684426253C1F35009D181A /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4684425253C1F35009D181A /* Circle.swift */; };
 		B468442C253C2A2B009D181A /* CircleMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468442B253C2A2B009D181A /* CircleMember.swift */; };
 		B468442F253C2AA5009D181A /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468442E253C2AA5009D181A /* Comment.swift */; };
+		B48AC15825487C2500669D8E /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC15725487C2500669D8E /* UserInfoView.swift */; };
+		B48AC16225489C5C00669D8E /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC16125489C5C00669D8E /* CommentViewController.swift */; };
+		B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC16425489C7B00669D8E /* CircleViewController.swift */; };
 		B4EC06E52539CC930087F59D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC06E42539CC930087F59D /* AppDelegate.swift */; };
 		B4EC06E72539CC930087F59D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC06E62539CC930087F59D /* SceneDelegate.swift */; };
 		B4EC06EC2539CC930087F59D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4EC06EA2539CC930087F59D /* Main.storyboard */; };
@@ -42,6 +45,9 @@
 		B4684425253C1F35009D181A /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		B468442B253C2A2B009D181A /* CircleMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMember.swift; sourceTree = "<group>"; };
 		B468442E253C2AA5009D181A /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		B48AC15725487C2500669D8E /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		B48AC16125489C5C00669D8E /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		B48AC16425489C7B00669D8E /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 		B4EC06E12539CC930087F59D /* Capstone Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Capstone Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4EC06E42539CC930087F59D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4EC06E62539CC930087F59D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +78,7 @@
 		B417560A25446F5F008BD497 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				B48AC15725487C2500669D8E /* UserInfoView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -83,6 +90,22 @@
 				B466097B253DE25B00EFC4FE /* FollowTableViewCell.swift */,
 			);
 			path = Follow;
+			sourceTree = "<group>";
+		};
+		B48AC15A25489BC800669D8E /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		B48AC16025489C5000669D8E /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				B48AC16125489C5C00669D8E /* CommentViewController.swift */,
+				B48AC16425489C7B00669D8E /* CircleViewController.swift */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 		B4EC06D82539CC930087F59D = {
@@ -141,6 +164,7 @@
 		B4EC06FB2539CCD70087F59D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B48AC16025489C5000669D8E /* Other */,
 				B4EC06FF2539D1D40087F59D /* MainViewController */,
 			);
 			path = Controller;
@@ -169,6 +193,7 @@
 		B4EC07132539D9590087F59D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B48AC15A25489BC800669D8E /* Comment */,
 				B417560A25446F5F008BD497 /* MyPage */,
 				B4660976253DE23800EFC4FE /* Follow */,
 				B4EC07182539D9AB0087F59D /* Feed */,
@@ -277,13 +302,16 @@
 				B4EC06E72539CC930087F59D /* SceneDelegate.swift in Sources */,
 				B4315F6C253C313600858073 /* FeedHeaderTableViewCell.swift in Sources */,
 				B4684426253C1F35009D181A /* Circle.swift in Sources */,
+				B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */,
 				B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */,
 				B4EC07072539D21A0087F59D /* MyCircleVC.swift in Sources */,
+				B48AC16225489C5C00669D8E /* CommentViewController.swift in Sources */,
 				B4EC07282539E4700087F59D /* Extension.swift in Sources */,
 				B4315F6A253C313600858073 /* FeedActionTableViewCell.swift in Sources */,
 				B4660978253DE24D00EFC4FE /* MyCircleTableViewCell.swift in Sources */,
 				B4EC07102539D8920087F59D /* Post.swift in Sources */,
 				B4EC070D2539D8860087F59D /* User.swift in Sources */,
+				B48AC15825487C2500669D8E /* UserInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
