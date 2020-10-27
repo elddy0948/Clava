@@ -17,13 +17,26 @@ class MyPageVC: UIViewController {
     // View For User Information
     private let uiView: UIView = {
         let view = UIView()
+        
         let profileImageView: UIImageView = {
             let imageView = UIImageView()
-            
+            imageView.backgroundColor = .red
             return imageView
         }()
         
+        let userNameLabel: UILabel = {
+            let label = UILabel()
+            return label
+        }()
+        
+        let userNickNameLabel: UILabel = {
+            let label = UILabel()
+            
+            return label
+        }()
+        
         view.addSubview(profileImageView)
+        view.addSubview(userNameLabel)
         return view
     }()
     
