@@ -14,8 +14,16 @@ class MyPageVC: UIViewController {
     
     private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], followCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], join: Date(), profilePhoto: nil)
     
+    // View For User Information
     private let uiView: UIView = {
         let view = UIView()
+        let profileImageView: UIImageView = {
+            let imageView = UIImageView()
+            
+            return imageView
+        }()
+        
+        view.addSubview(profileImageView)
         return view
     }()
     
