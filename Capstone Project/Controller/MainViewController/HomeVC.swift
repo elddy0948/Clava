@@ -62,24 +62,28 @@ extension HomeVC: UITableViewDataSource {
             
             // FeedHeaderTableViewCell Delegate 채택
             cell.delegate = self
+            cell.selectionStyle = .none
             return cell
         } else if indexPath.row == 1 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedPostTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
             }
+            cell.selectionStyle = .none
             return cell
         } else if indexPath.row == 2 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedActionTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedActionTableViewCell else {
                 fatalError("FeedActionTableViewCell")
             }
+            cell.selectionStyle = .none
             return cell
         } else if indexPath.row == 3 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedCommentTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
             }
+            cell.selectionStyle = .none
             return cell
         }
         return UITableViewCell()

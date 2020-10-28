@@ -20,6 +20,7 @@ class UserInfoView: UIView {
         label.text = "Hojoon"
         label.numberOfLines = 1
         label.textColor = .label
+        label.textAlignment = .center
         return label
     }()
     
@@ -27,6 +28,7 @@ class UserInfoView: UIView {
         let label = UILabel()
         label.text = "@Holuck"
         label.numberOfLines = 1
+        label.textAlignment = .center
         label.textColor = .label
         return label
     }()
@@ -48,9 +50,10 @@ class UserInfoView: UIView {
         profileImageView.frame = CGRect(x: size, y: 10, width: size, height: size)
         profileImageView.layer.cornerRadius = size / 2
         
-        let labelSize = self.width / 2
-        userNameLabel.frame = CGRect(x: size, y: profileImageView.bottom, width: labelSize, height: 30)
-        userNickNameLabel.frame = CGRect(x: size, y: userNameLabel.bottom, width: labelSize, height: 30)
+        userNameLabel.frame = CGRect(x: 0, y: profileImageView.bottom + 5,
+                                     width: self.width, height: 30)
+        userNickNameLabel.frame = CGRect(x: 0, y: userNameLabel.bottom,
+                                         width: self.width, height: 30)
     }
     
 }

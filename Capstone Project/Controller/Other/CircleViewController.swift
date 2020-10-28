@@ -7,6 +7,11 @@
 
 import UIKit
 
+
+// 동아리 이미지
+// 소속 위치 카테고리
+// 설명
+
 class CircleViewController: UIViewController {
     
     private var collectionView: UICollectionView?

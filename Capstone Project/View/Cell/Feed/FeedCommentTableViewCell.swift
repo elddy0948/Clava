@@ -56,6 +56,6 @@ class FeedCommentTableViewCell: UITableViewCell {
         super.layoutSubviews()
         userName.frame = CGRect(x: 8, y: 10, width: contentView.width / 4, height: contentView.height / 4)
         comments.frame = CGRect(x: userName.right + 4, y: 10, width: contentView.width - userName.width, height: contentView.height / 4)
-        moreCommentButton.frame = CGRect(x: 0, y: contentView.height - 24, width: contentView.width / 3, height: comments.height)
+        moreCommentButton.frame = CGRect(x: 0, y: contentView.height - 24, width: contentView.width, height: comments.height)
     }
 }
