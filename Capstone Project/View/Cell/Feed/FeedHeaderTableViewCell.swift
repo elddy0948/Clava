@@ -20,7 +20,7 @@ protocol FeedHeaderTableViewCellDelegate: AnyObject {
 class FeedHeaderTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "FeedHeaderTableViewCell"
-    
+        
     weak var delegate: FeedHeaderTableViewCellDelegate?
     
     private let profileImage: UIImageView = {
@@ -31,7 +31,6 @@ class FeedHeaderTableViewCell: UITableViewCell {
     
     private let profileName: UIButton = {
         let button = UIButton()
-        button.setTitle("DCA", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .none
         button.contentHorizontalAlignment = .left
@@ -84,8 +83,8 @@ class FeedHeaderTableViewCell: UITableViewCell {
     
     
     //MARK: - public
-    public func configure(model: String) {
-        
+    public func configure(model: Circle) {
+        profileName.setTitle(model.name, for: .normal)
     }
     
     //MARK: - Actions

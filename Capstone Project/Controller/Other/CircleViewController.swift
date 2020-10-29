@@ -15,6 +15,7 @@ import UIKit
 class CircleViewController: UIViewController {
     
     private var collectionView: UICollectionView?
+    private var model: Circle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,10 @@ class CircleViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
+    }
+    
+    public func configure(with model: Circle) {
+        
     }
 }
 

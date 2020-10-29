@@ -9,6 +9,9 @@ import UIKit
 
 class HomeVC: UIViewController {
     
+    private let user = User(email: "holuck@naver.com", password: "123456", userName: "Hojoon", nickName: "Holuck",
+                            gender: .male, organization: "Dong-A Univ", birth: Date(), myCircle: [Circle(name: "DCA", organization: "Dong-A Univ", description: "Computer Circle", circleProfilePhoto: "", follower: [], circleMember: [], category: "Computer", post: [])], followCircle: [], join: Date(), profilePhoto: nil)
+    
     //MARK: - Views
     private let feedTableView: UITableView = {
         let tableView = UITableView()
@@ -45,16 +48,22 @@ extension HomeVC: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print(section)
-        return 4
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        
+        
+        //MARK: - Bring The Model
+        guard let myCircle = user.myCircle else {fatalError("Can't Get MyCircle")}
+        let model = myCircle[indexPath.section / 4]
+        
+        if indexPath.section == 0 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedHeaderTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedHeaderTableViewCell else {
                 fatalError("FeedHeaderTableViewCell")
@@ -62,23 +71,27 @@ extension HomeVC: UITableViewDataSource {
             
             // FeedHeaderTableViewCell Delegate 채택
             cell.delegate = self
+            cell.configure(model: model)
             cell.selectionStyle = .none
             return cell
-        } else if indexPath.row == 1 {
+        }
+        else if indexPath.section == 1 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedPostTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
             }
             cell.selectionStyle = .none
             return cell
-        } else if indexPath.row == 2 {
+        }
+        else if indexPath.section == 2 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedActionTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedActionTableViewCell else {
                 fatalError("FeedActionTableViewCell")
             }
             cell.selectionStyle = .none
             return cell
-        } else if indexPath.row == 3 {
+        }
+        else if indexPath.section == 3 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedCommentTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
@@ -90,19 +103,29 @@ extension HomeVC: UITableViewDataSource {
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             return 60
-        } else if indexPath.row == 1 {
+        } else if indexPath.section == 1 {
             return tableView.width
-        } else if indexPath.row == 2 {
+        } else if indexPath.section == 2 {
             return 60
-        } else if indexPath.row == 3 {
+        } else if indexPath.section == 3 {
             return 80
         }
         return 0
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
+        if section % 4 == 3 {
+            return UIView()
+        }
+        
+        return nil
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section % 4 == 3 {
+            return 50
+        }
+        return 0
     }
 }
 
