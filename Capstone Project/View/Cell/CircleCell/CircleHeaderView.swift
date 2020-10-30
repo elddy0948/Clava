@@ -43,13 +43,14 @@ class CircleHeaderView: UIView {
     }()
     private let circleDescription: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .red
+        textView.backgroundColor = .secondarySystemBackground
+        textView.text = "Here is Description"
         return textView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .yellow
+        backgroundColor = .systemBackground
         self.addSubview(circleImageView)
         self.addSubview(circleArea)
         self.addSubview(circleBelong)
