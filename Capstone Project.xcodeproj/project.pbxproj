@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -34,6 +34,10 @@
 		B4EC070D2539D8860087F59D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC070C2539D8860087F59D /* User.swift */; };
 		B4EC07102539D8920087F59D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC070F2539D8920087F59D /* Post.swift */; };
 		B4EC07282539E4700087F59D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC07272539E4700087F59D /* Extension.swift */; };
+		B4FFD286254E9B3500C27E8E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B4FFD285254E9B3500C27E8E /* Alamofire */; };
+		B4FFD28A254E9BAD00C27E8E /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B4FFD289254E9BAD00C27E8E /* SwiftyJSON */; };
+		B4FFD28E254E9BEB00C27E8E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFD28D254E9BEB00C27E8E /* LoginViewController.swift */; };
+		B4FFD291254E9C0200C27E8E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FFD290254E9C0200C27E8E /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +70,8 @@
 		B4EC070C2539D8860087F59D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B4EC070F2539D8920087F59D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		B4EC07272539E4700087F59D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		B4FFD28D254E9BEB00C27E8E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B4FFD290254E9C0200C27E8E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4FFD28A254E9BAD00C27E8E /* SwiftyJSON in Frameworks */,
+				B4FFD286254E9B3500C27E8E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +185,7 @@
 		B4EC06FB2539CCD70087F59D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B4FFD28C254E9BCC00C27E8E /* User */,
 				B48AC16025489C5000669D8E /* Other */,
 				B4EC06FF2539D1D40087F59D /* MainViewController */,
 			);
@@ -234,6 +243,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		B4FFD28C254E9BCC00C27E8E /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B4FFD28D254E9BEB00C27E8E /* LoginViewController.swift */,
+				B4FFD290254E9C0200C27E8E /* SignUpViewController.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -250,6 +268,10 @@
 			dependencies = (
 			);
 			name = "Capstone Project";
+			packageProductDependencies = (
+				B4FFD285254E9B3500C27E8E /* Alamofire */,
+				B4FFD289254E9BAD00C27E8E /* SwiftyJSON */,
+			);
 			productName = "Capstone Project";
 			productReference = B4EC06E12539CC930087F59D /* Capstone Project.app */;
 			productType = "com.apple.product-type.application";
@@ -277,6 +299,10 @@
 				Base,
 			);
 			mainGroup = B4EC06D82539CC930087F59D;
+			packageReferences = (
+				B4FFD284254E9B3500C27E8E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B4FFD288254E9BAD00C27E8E /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = B4EC06E22539CC930087F59D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -317,6 +343,7 @@
 				B4EC07042539D20D0087F59D /* ExploreVC.swift in Sources */,
 				B4EC06E72539CC930087F59D /* SceneDelegate.swift in Sources */,
 				B4315F6C253C313600858073 /* FeedHeaderTableViewCell.swift in Sources */,
+				B4FFD28E254E9BEB00C27E8E /* LoginViewController.swift in Sources */,
 				B4684426253C1F35009D181A /* Circle.swift in Sources */,
 				B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */,
 				B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */,
@@ -327,6 +354,7 @@
 				B4660978253DE24D00EFC4FE /* MyCircleTableViewCell.swift in Sources */,
 				B4EC07102539D8920087F59D /* Post.swift in Sources */,
 				B4EC070D2539D8860087F59D /* User.swift in Sources */,
+				B4FFD291254E9C0200C27E8E /* SignUpViewController.swift in Sources */,
 				B48AC15825487C2500669D8E /* UserInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,6 +555,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B4FFD284254E9B3500C27E8E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.3.0;
+			};
+		};
+		B4FFD288254E9BAD00C27E8E /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B4FFD285254E9B3500C27E8E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B4FFD284254E9B3500C27E8E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		B4FFD289254E9BAD00C27E8E /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B4FFD288254E9BAD00C27E8E /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B4EC06D92539CC930087F59D /* Project object */;
 }
