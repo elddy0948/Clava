@@ -16,16 +16,26 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    private let emailTextField: UITextField = {
-        let textField = UITextField()
+    private let textFieldStack: UIStackView = {
+        let stackView = UIStackView()
+        let emailTextField: UITextField = {
+            let textField = UITextField()
+            
+            return textField
+        }()
         
-        return textField
+        let passwordTextField: UITextField = {
+            let textField = UITextField()
+            
+            return textField
+        }()
+        return stackView
     }()
     
-    private let passwordTextField: UITextField = {
-        let textField = UITextField()
+    private let buttonStack: UIStackView = {
+        let stackView = UIStackView()
         
-        return textField
+        return stackView
     }()
     
     private let loginButton: UIButton = {
