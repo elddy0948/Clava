@@ -35,20 +35,21 @@ class LoginViewController: UIViewController {
     private let buttonStack: UIStackView = {
         let stackView = UIStackView()
         
+        //Button Views
+        let loginButton: UIButton = {
+            let button = UIButton()
+            
+            return button
+        }()
+        
+        let signupButton: UIButton = {
+            let button = UIButton()
+            return button
+        }()
+        
         return stackView
     }()
     
-    private let loginButton: UIButton = {
-        let button = UIButton()
-        
-        return button
-    }()
-    
-    private let signupButton: UIButton = {
-        let button = UIButton()
-        
-        return button
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,10 +59,5 @@ class LoginViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-    }
-    
-    private func configureStackView() {
-        let textFieldStack = UIStackView(arrangedSubviews: [emailTextField, passwordTextField])
-        textFieldStack.axis = .vertical
     }
 }
