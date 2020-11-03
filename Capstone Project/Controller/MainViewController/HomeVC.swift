@@ -132,7 +132,8 @@ extension HomeVC: UITableViewDataSource {
 
 extension HomeVC: FeedHeaderTableViewCellDelegate {
     func pressProfileName() {
-        let vc = CircleViewController()
+//        let vc = CircleViewController()
+        let vc = LoginViewController()
         vc.title = "DCA"
         navigationController?.pushViewController(vc, animated: true)
     }
