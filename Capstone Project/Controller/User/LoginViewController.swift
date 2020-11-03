@@ -18,24 +18,38 @@ class LoginViewController: UIViewController {
     
     private let textFieldStack: UIStackView = {
         let stackView = UIStackView()
+        
         let emailTextField: UITextField = {
             let textField = UITextField()
-            textField.backgroundColor = .red
+            textField.placeholder = "EMAIL"
+            textField.keyboardType = .emailAddress
+            textField.autocapitalizationType = .none
+            textField.layer.masksToBounds = true
+            textField.layer.cornerRadius = 8
+            textField.layer.borderWidth = 1.0
+            textField.layer.borderColor = UIColor.secondaryLabel.cgColor
             return textField
         }()
         
         let passwordTextField: UITextField = {
             let textField = UITextField()
-            
+            textField.placeholder = "PASSWORD"
+            textField.isSecureTextEntry = true
+            textField.layer.masksToBounds = true
+            textField.layer.cornerRadius = 8
+            textField.layer.borderWidth = 1.0
+            textField.layer.borderColor = UIColor.secondaryLabel.cgColor
             return textField
         }()
-        emailTextField.frame = CGRect(x: 0, y: 0, width: stackView.width, height: 20)
-        passwordTextField.frame = CGRect(x: 0, y: emailTextField.bottom, width: stackView.width, height: 20)
+        
+        emailTextField.frame = CGRect(x: 0, y: 0, width: stackView.width, height: 52)
+        passwordTextField.frame = CGRect(x: 0, y: emailTextField.bottom, width: stackView.width, height: 52)
+
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.axis = .vertical
-        stackView.backgroundColor = .yellow
         stackView.distribution = .fillEqually
+        stackView.spacing = 8
         
         return stackView
     }()
@@ -68,7 +82,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        textFieldStack.frame = CGRect(x: 0, y: 100, width: view.width, height: 80)
+        
+        textFieldStack.frame = CGRect(x: 10, y: view.height / 2, width: view.width - 20, height: 120)
 //        buttonStack.frame = CGRect(x: 0, y: textFieldStack.bottom, width: view.width, height: view.width / 2)
         
     }
