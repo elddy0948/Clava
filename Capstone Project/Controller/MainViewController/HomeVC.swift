@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class HomeVC: UIViewController {
     
@@ -27,6 +29,23 @@ class HomeVC: UIViewController {
     }()
     
     //MARK: - LifeCycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let parameter: Parameters = [
+            "email": "aaa.com",
+            "password": "test"
+        ]
+        let url: String = "http://3.35.240.252:8080/auth"
+        AF.request(url, method: .post, parameters: parameter, encoding: JSONEncoding.default,
+                   headers: [
+                    "Content-Type": "application/json"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    print(response.data!)
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(feedTableView)
