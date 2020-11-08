@@ -15,21 +15,19 @@ import UIKit
  */
 
 class LoginViewController: UIViewController {
-    private let textFieldView = LoginSignupView()
-    
-    
+    private let loginView = LoginView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        view.addSubview(textFieldView)
+        view.addSubview(loginView)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         // StackView Frame Settings
-        textFieldView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: 120)
+        loginView.frame = CGRect(x: 10, y: view.safeAreaInsets.top + view.width / 2, width: view.width - 20, height: view.width / 2)
     }
     
     //MARK: - Actions

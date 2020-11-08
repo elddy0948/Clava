@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B41B98A225585598007F7EE7 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41B98A125585598007F7EE7 /* SignupView.swift */; };
 		B4315F6A253C313600858073 /* FeedActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F66253C313600858073 /* FeedActionTableViewCell.swift */; };
 		B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F67253C313600858073 /* FeedPostTableViewCell.swift */; };
 		B4315F6C253C313600858073 /* FeedHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F68253C313600858073 /* FeedHeaderTableViewCell.swift */; };
@@ -17,7 +18,7 @@
 		B4684426253C1F35009D181A /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4684425253C1F35009D181A /* Circle.swift */; };
 		B468442C253C2A2B009D181A /* CircleMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468442B253C2A2B009D181A /* CircleMember.swift */; };
 		B468442F253C2AA5009D181A /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468442E253C2AA5009D181A /* Comment.swift */; };
-		B4725F1D2553068F00145B2F /* LoginSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4725F1C2553068F00145B2F /* LoginSignupView.swift */; };
+		B4725F1D2553068F00145B2F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4725F1C2553068F00145B2F /* LoginView.swift */; };
 		B48AC15825487C2500669D8E /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC15725487C2500669D8E /* UserInfoView.swift */; };
 		B48AC16225489C5C00669D8E /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC16125489C5C00669D8E /* CommentViewController.swift */; };
 		B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC16425489C7B00669D8E /* CircleViewController.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B41B98A125585598007F7EE7 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		B4315F66253C313600858073 /* FeedActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedActionTableViewCell.swift; sourceTree = "<group>"; };
 		B4315F67253C313600858073 /* FeedPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedPostTableViewCell.swift; sourceTree = "<group>"; };
 		B4315F68253C313600858073 /* FeedHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -52,7 +54,7 @@
 		B4684425253C1F35009D181A /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		B468442B253C2A2B009D181A /* CircleMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMember.swift; sourceTree = "<group>"; };
 		B468442E253C2AA5009D181A /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		B4725F1C2553068F00145B2F /* LoginSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignupView.swift; sourceTree = "<group>"; };
+		B4725F1C2553068F00145B2F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B48AC15725487C2500669D8E /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		B48AC16125489C5C00669D8E /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		B48AC16425489C7B00669D8E /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
@@ -177,7 +179,8 @@
 		B4EC06FA2539CCD20087F59D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B4725F1C2553068F00145B2F /* LoginSignupView.swift */,
+				B4725F1C2553068F00145B2F /* LoginView.swift */,
+				B41B98A125585598007F7EE7 /* SignupView.swift */,
 				B4EC07132539D9590087F59D /* Cell */,
 				B4EC07122539D93C0087F59D /* Storyboard */,
 				B4EC06ED2539CC940087F59D /* Assets.xcassets */,
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B41B98A225585598007F7EE7 /* SignupView.swift in Sources */,
 				B4A920DF254B3A6500C429D2 /* CirclePostTableViewCell.swift in Sources */,
 				B4315F6D253C313600858073 /* FeedCommentTableViewCell.swift in Sources */,
 				B466097F253DF3AB00EFC4FE /* BetweenUserCircle.swift in Sources */,
@@ -342,7 +346,7 @@
 				B466097C253DE25B00EFC4FE /* FollowTableViewCell.swift in Sources */,
 				B4A920E2254B3D2400C429D2 /* CircleHeaderView.swift in Sources */,
 				B468442F253C2AA5009D181A /* Comment.swift in Sources */,
-				B4725F1D2553068F00145B2F /* LoginSignupView.swift in Sources */,
+				B4725F1D2553068F00145B2F /* LoginView.swift in Sources */,
 				B468442C253C2A2B009D181A /* CircleMember.swift in Sources */,
 				B4EC07042539D20D0087F59D /* ExploreVC.swift in Sources */,
 				B4EC06E72539CC930087F59D /* SceneDelegate.swift in Sources */,

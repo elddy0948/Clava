@@ -32,6 +32,12 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if UserDefaults.standard.string(forKey: "email") == nil || UserDefaults.standard.string(forKey: "password") == nil {
+            let vc = LoginViewController()
+            vc.title = "LOG IN"
+            navigationController?.pushViewController(vc, animated: true)
+        }
         let parameter: Parameters = [
             "email": "aaa.com",
             "password": "test"

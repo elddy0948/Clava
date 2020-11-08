@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginSignupView: UIView {
+class LoginView: UIView {
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -79,8 +79,8 @@ class LoginSignupView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         stackView.frame = CGRect(x: 0, y: 0, width: self.width, height: self.height)
-        emailTextField.frame = CGRect(x: 0, y: 0, width: stackView.width, height: 52)
-        passwordTextField.frame = CGRect(x: 0, y: emailTextField.bottom, width: stackView.width, height: 52)
+        emailTextField.frame = CGRect(x: 0, y: 0, width: stackView.width, height: stackView.height / 2)
+        passwordTextField.frame = CGRect(x: 0, y: emailTextField.bottom, width: stackView.width, height: stackView.height / 2)
     }
     
     //MARK: - Actions
