@@ -22,7 +22,7 @@ class ExploreVC: UIViewController {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ExploreTableViewCell.self, forCellReuseIdentifier: ExploreTableViewCell.reuseIdentifier)
         return tableView
     }()
     
@@ -72,8 +72,10 @@ extension ExploreVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = circles[indexPath.row].name
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ExploreTableViewCell.reuseIdentifier, for: indexPath) as? ExploreTableViewCell else {
+            fatalError("Error at ExploreTableViewCell")
+        }
+        cell.configure(with: circles[indexPath.row])
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

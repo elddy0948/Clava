@@ -20,6 +20,7 @@
 		B4684426253C1F35009D181A /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4684425253C1F35009D181A /* Circle.swift */; };
 		B468442C253C2A2B009D181A /* CircleMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468442B253C2A2B009D181A /* CircleMember.swift */; };
 		B468442F253C2AA5009D181A /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B468442E253C2AA5009D181A /* Comment.swift */; };
+		B46F13CF256189F500C397BB /* ExploreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46F13CE256189F500C397BB /* ExploreTableViewCell.swift */; };
 		B4725F1D2553068F00145B2F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4725F1C2553068F00145B2F /* LoginView.swift */; };
 		B48AC15825487C2500669D8E /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC15725487C2500669D8E /* UserInfoView.swift */; };
 		B48AC16225489C5C00669D8E /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC16125489C5C00669D8E /* CommentViewController.swift */; };
@@ -58,6 +59,7 @@
 		B4684425253C1F35009D181A /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		B468442B253C2A2B009D181A /* CircleMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMember.swift; sourceTree = "<group>"; };
 		B468442E253C2AA5009D181A /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		B46F13CE256189F500C397BB /* ExploreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewCell.swift; sourceTree = "<group>"; };
 		B4725F1C2553068F00145B2F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B48AC15725487C2500669D8E /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		B48AC16125489C5C00669D8E /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				B417560A25446F5F008BD497 /* MyPage */,
 				B4660976253DE23800EFC4FE /* Follow */,
 				B4EC07182539D9AB0087F59D /* Feed */,
+				B46F13CE256189F500C397BB /* ExploreTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				B4315F6C253C313600858073 /* FeedHeaderTableViewCell.swift in Sources */,
 				B4FFD28E254E9BEB00C27E8E /* LoginViewController.swift in Sources */,
 				B4684426253C1F35009D181A /* Circle.swift in Sources */,
+				B46F13CF256189F500C397BB /* ExploreTableViewCell.swift in Sources */,
 				B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */,
 				B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */,
 				B4EC07072539D21A0087F59D /* MyCircleVC.swift in Sources */,
