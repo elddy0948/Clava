@@ -33,23 +33,28 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if UserDefaults.standard.string(forKey: "email") == nil || UserDefaults.standard.string(forKey: "password") == nil {
+        let userEmail = UserDefaults.standard.string(forKey: "email")
+        let userPassword = UserDefaults.standard.string(forKey: "password")
+
+        if userEmail == nil || userPassword == nil {
             let vc = LoginViewController()
-            vc.title = "LOG IN"
-            navigationController?.pushViewController(vc, animated: true)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            guard let email = userEmail else { fatalError("Email Error") }
+            guard let password = userPassword else { fatalError("Password Error") }
+            let parameter: Parameters = [
+                "email": "\(email)",
+                "password": "\(password)"
+            ]
+            let url: String = "http://3.35.240.252:8080/auth"
+            AF.request(url, method: .post, parameters: parameter, encoding: JSONEncoding.default,
+                       headers: [
+                        "Content-Type": "application/json"
+                       ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                        print(response.result)
+            }
         }
-        let parameter: Parameters = [
-            "email": "aaa.com",
-            "password": "test"
-        ]
-        let url: String = "http://3.35.240.252:8080/auth"
-        AF.request(url, method: .post, parameters: parameter, encoding: JSONEncoding.default,
-                   headers: [
-                    "Content-Type": "application/json"
-                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
-                    print(response.data!)
-        }
-        
     }
     
     override func viewDidLoad() {
@@ -157,8 +162,8 @@ extension HomeVC: UITableViewDataSource {
 
 extension HomeVC: FeedHeaderTableViewCellDelegate {
     func pressProfileName() {
-//        let vc = CircleViewController()
-        let vc = LoginViewController()
+        let vc = CircleViewController()
+//        let vc = LoginViewController()
         vc.title = "DCA"
         navigationController?.pushViewController(vc, animated: true)
     }

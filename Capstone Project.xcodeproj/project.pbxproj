@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B41B98A225585598007F7EE7 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41B98A125585598007F7EE7 /* SignupView.swift */; };
+		B427C2B3255BC56200DB8C29 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427C2B2255BC56200DB8C29 /* SettingsViewController.swift */; };
 		B4315F6A253C313600858073 /* FeedActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F66253C313600858073 /* FeedActionTableViewCell.swift */; };
 		B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F67253C313600858073 /* FeedPostTableViewCell.swift */; };
 		B4315F6C253C313600858073 /* FeedHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F68253C313600858073 /* FeedHeaderTableViewCell.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		B41B98A125585598007F7EE7 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		B427C2B2255BC56200DB8C29 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B4315F66253C313600858073 /* FeedActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedActionTableViewCell.swift; sourceTree = "<group>"; };
 		B4315F67253C313600858073 /* FeedPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedPostTableViewCell.swift; sourceTree = "<group>"; };
 		B4315F68253C313600858073 /* FeedHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				B4FFD28D254E9BEB00C27E8E /* LoginViewController.swift */,
 				B4FFD290254E9C0200C27E8E /* SignUpViewController.swift */,
+				B427C2B2255BC56200DB8C29 /* SettingsViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				B48AC16225489C5C00669D8E /* CommentViewController.swift in Sources */,
 				B4EC07282539E4700087F59D /* Extension.swift in Sources */,
 				B4315F6A253C313600858073 /* FeedActionTableViewCell.swift in Sources */,
+				B427C2B3255BC56200DB8C29 /* SettingsViewController.swift in Sources */,
 				B4660978253DE24D00EFC4FE /* MyCircleTableViewCell.swift in Sources */,
 				B4EC07102539D8920087F59D /* Post.swift in Sources */,
 				B4EC070D2539D8860087F59D /* User.swift in Sources */,

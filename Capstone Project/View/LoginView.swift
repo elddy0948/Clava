@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol LoginViewDelegate: AnyObject {
+    func didTapLoginButton()
+    func didTapSignupButton()
+}
+
 class LoginView: UIView {
+    
+    weak var delegate: LoginViewDelegate?
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -18,7 +25,7 @@ class LoginView: UIView {
     }()
     
     //Text Field Views
-    private let emailTextField: UITextField = {
+    let emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = " EMAIL"
         textField.keyboardType = .emailAddress
@@ -30,7 +37,7 @@ class LoginView: UIView {
         return textField
     }()
     
-    private let passwordTextField: UITextField = {
+    let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = " PASSWORD"
         textField.isSecureTextEntry = true
@@ -49,7 +56,7 @@ class LoginView: UIView {
         button.backgroundColor = .link
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 4
-        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapLogInButton), for: .touchUpInside)
         return button
     }()
     
@@ -60,6 +67,7 @@ class LoginView: UIView {
         button.backgroundColor = .link
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 4
+        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
         return button
     }()
     
@@ -85,9 +93,9 @@ class LoginView: UIView {
     
     //MARK: - Actions
     @objc private func didTapLogInButton() {
-        
+        delegate?.didTapLoginButton()
     }
     @objc private func didTapSignUpButton() {
-        
+        delegate?.didTapSignupButton()
     }
 }

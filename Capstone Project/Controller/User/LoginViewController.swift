@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 /*
  - email
@@ -19,22 +20,40 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginView.delegate = self
         view.backgroundColor = .systemBackground
         view.addSubview(loginView)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         // StackView Frame Settings
         loginView.frame = CGRect(x: 10, y: view.safeAreaInsets.top + view.width / 2, width: view.width - 20, height: view.width / 2)
     }
-    
-    //MARK: - Actions
-    @objc private func didTapLogInButton() {
-        print("didTapLoginButton")
+}
+extension LoginViewController: LoginViewDelegate {
+    func didTapLoginButton() {
+        guard let email = loginView.emailTextField.text else { fatalError("Email Error") }
+        guard let password = loginView.passwordTextField.text else { fatalError("Password Error") }
+        let parameter: Parameters = [
+            "email": "\(email)",
+            "password": "\(password)"
+        ]
+        let url: String = "http://3.35.240.252:8080/auth"
+        AF.request(url, method: .post, parameters: parameter, encoding: JSONEncoding.default,
+                   headers: [
+                    "Content-Type": "application/json"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    if response.error == nil {
+                        UserDefaults.standard.set("\(email)", forKey: "email")
+                        UserDefaults.standard.set("\(password)", forKey: "password")
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        print("Login 불가!")
+                    }
+        }
     }
-    @objc private func didTapSignUpButton() {
-        print("didTapSignup Button")
+    func didTapSignupButton() {
+        print("SignUp")
     }
 }
