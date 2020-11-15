@@ -10,7 +10,9 @@ import Alamofire
 import SwiftyJSON
 
 class ExploreVC: UIViewController {
-    var circles = [Circle]()
+    private var circles = [Circle]()
+    private var json = [JSON]()
+    
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search..."
@@ -26,8 +28,7 @@ class ExploreVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getAllCircles()
-        print("viewWillAppear : \(circles)")
+        self.getAllCircles()
     }
     
     override func viewDidLoad() {
@@ -37,6 +38,7 @@ class ExploreVC: UIViewController {
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -44,29 +46,15 @@ class ExploreVC: UIViewController {
         tableView.frame = view.bounds
     }
     
-
-    
     private func getAllCircles() {
-
-        var circles = [Circle]()
-        let url = "http://3.35.240.252:8080/circles"
-        DispatchQueue.global().sync {
-            AF.request(url, method: .get).responseJSON { (response) in
-                    switch response.result {
-                    case .failure(let error):
-                        print(error)
-                    case .success(let data):
-                        let json = JSON(data)
-                        DispatchQueue.global(qos: .default).sync {
-                            for item in json.arrayValue {
-                                let circle = Circle(fromJson: item)
-                                circles.append(circle)
-                                print(circles)
-                            }
-                        }
-                    }
+        print("Dispatch Queue")
+        let urlToRequest = "http://3.35.240.252:8080/circles"
+        AF.request(urlToRequest, method: .get).responseJSON(queue: .main) { (response) in
+            self.json = JSON(response.data ?? "").arrayValue
+            for item in self.json {
+                self.circles.append(Circle(fromJson: item))
             }
-            print("getAllCircles : \(circles)")
+            self.tableView.reloadData()
         }
     }
 }
@@ -80,12 +68,12 @@ extension ExploreVC: UITableViewDelegate {
 //MARK: - TableViewDataSource
 extension ExploreVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return circles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .blue
+        cell.textLabel?.text = circles[indexPath.row].name
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
