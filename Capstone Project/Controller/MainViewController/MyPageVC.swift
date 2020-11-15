@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class MyPageVC: UIViewController {
     
     //Collection View?
     
     
-    private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], followCircle: [Circle(name: "DCA", organization: "Dong-A", description: "Welcome", circleProfilePhoto: "None", follower: [], circleMember: [], category: "Computer", post: [])], join: Date(), profilePhoto: nil)
+    private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(fromJson: JSON())], followCircle: [Circle(fromJson: JSON())], join: Date(), profilePhoto: nil)
     
     // View For User Information
     private let uiView: UIView = {

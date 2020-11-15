@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ExploreVC: UIViewController {
-
+    var circles = [Circle]()
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Search..."
@@ -22,6 +24,12 @@ class ExploreVC: UIViewController {
         return tableView
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllCircles()
+        print("viewWillAppear : \(circles)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.topItem?.titleView = searchBar
@@ -34,6 +42,32 @@ class ExploreVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+    }
+    
+
+    
+    private func getAllCircles() {
+
+        var circles = [Circle]()
+        let url = "http://3.35.240.252:8080/circles"
+        DispatchQueue.global().sync {
+            AF.request(url, method: .get).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        let json = JSON(data)
+                        DispatchQueue.global(qos: .default).sync {
+                            for item in json.arrayValue {
+                                let circle = Circle(fromJson: item)
+                                circles.append(circle)
+                                print(circles)
+                            }
+                        }
+                    }
+            }
+            print("getAllCircles : \(circles)")
+        }
     }
 }
 

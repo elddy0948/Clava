@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SwiftyJSON
 
 // 동아리 이미지
 // 소속 위치 카테고리
@@ -24,7 +24,7 @@ import UIKit
 class CircleViewController: UIViewController {
     
     private let user = User(email: "holuck@naver.com", password: "123456", userName: "Hojoon", nickName: "Holuck",
-                            gender: .male, organization: "Dong-A Univ", birth: Date(), myCircle: [Circle(name: "DCA", organization: "Dong-A Univ", description: "Computer Circle", circleProfilePhoto: "", follower: [], circleMember: [], category: "Computer", post: [])], followCircle: [], join: Date(), profilePhoto: nil)
+                            gender: .male, organization: "Dong-A Univ", birth: Date(), myCircle: [Circle(fromJson: JSON())], followCircle: [], join: Date(), profilePhoto: nil)
     
     private let tableView: UITableView = {
         let tableView = UITableView()

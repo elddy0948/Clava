@@ -10,9 +10,8 @@ import Alamofire
 import SwiftyJSON
 
 class HomeVC: UIViewController {
-    
-    private let user = User(email: "holuck@naver.com", password: "123456", userName: "Hojoon", nickName: "Holuck",
-                            gender: .male, organization: "Dong-A Univ", birth: Date(), myCircle: [Circle(name: "DCA", organization: "Dong-A Univ", description: "Computer Circle", circleProfilePhoto: "", follower: [], circleMember: [], category: "Computer", post: [])], followCircle: [], join: Date(), profilePhoto: nil)
+    private var userModel: User?
+    private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(fromJson: JSON())], followCircle: [Circle(fromJson: JSON())], join: Date(), profilePhoto: nil)
     
     //MARK: - Views
     private let feedTableView: UITableView = {
@@ -52,7 +51,20 @@ class HomeVC: UIViewController {
                        headers: [
                         "Content-Type": "application/json"
                        ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
-                        print(response.result)
+                        switch response.result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(let data):
+                            let json = JSON(data)
+                            let authInfo = Auth(fromJson: json)
+                            if let userNickname = authInfo.userNickname {
+                                let requestURL = "http://3.35.240.252:8080/users/\(userNickname)"
+                                let request = AF.request(requestURL, method: .get)
+                                request.responseJSON { (response) in
+                                    print(response.result)
+                                }
+                            }
+                        }
             }
         }
     }

@@ -13,6 +13,7 @@
 		B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F67253C313600858073 /* FeedPostTableViewCell.swift */; };
 		B4315F6C253C313600858073 /* FeedHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F68253C313600858073 /* FeedHeaderTableViewCell.swift */; };
 		B4315F6D253C313600858073 /* FeedCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F69253C313600858073 /* FeedCommentTableViewCell.swift */; };
+		B45C9B27256119AC009D8D52 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45C9B26256119AC009D8D52 /* Auth.swift */; };
 		B4660978253DE24D00EFC4FE /* MyCircleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4660977253DE24D00EFC4FE /* MyCircleTableViewCell.swift */; };
 		B466097C253DE25B00EFC4FE /* FollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B466097B253DE25B00EFC4FE /* FollowTableViewCell.swift */; };
 		B466097F253DF3AB00EFC4FE /* BetweenUserCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B466097E253DF3AA00EFC4FE /* BetweenUserCircle.swift */; };
@@ -50,6 +51,7 @@
 		B4315F67253C313600858073 /* FeedPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedPostTableViewCell.swift; sourceTree = "<group>"; };
 		B4315F68253C313600858073 /* FeedHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		B4315F69253C313600858073 /* FeedCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCommentTableViewCell.swift; sourceTree = "<group>"; };
+		B45C9B26256119AC009D8D52 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		B4660977253DE24D00EFC4FE /* MyCircleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCircleTableViewCell.swift; sourceTree = "<group>"; };
 		B466097B253DE25B00EFC4FE /* FollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTableViewCell.swift; sourceTree = "<group>"; };
 		B466097E253DF3AA00EFC4FE /* BetweenUserCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetweenUserCircle.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 		B4EC06F92539CCCB0087F59D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B45C9B26256119AC009D8D52 /* Auth.swift */,
 				B4EC070C2539D8860087F59D /* User.swift */,
 				B4684425253C1F35009D181A /* Circle.swift */,
 				B468442B253C2A2B009D181A /* CircleMember.swift */,
@@ -344,6 +347,7 @@
 				B4315F6D253C313600858073 /* FeedCommentTableViewCell.swift in Sources */,
 				B466097F253DF3AB00EFC4FE /* BetweenUserCircle.swift in Sources */,
 				B4EC07012539D1F90087F59D /* HomeVC.swift in Sources */,
+				B45C9B27256119AC009D8D52 /* Auth.swift in Sources */,
 				B4EC070A2539D2280087F59D /* MyPageVC.swift in Sources */,
 				B4EC06E52539CC930087F59D /* AppDelegate.swift in Sources */,
 				B466097C253DE25B00EFC4FE /* FollowTableViewCell.swift in Sources */,
