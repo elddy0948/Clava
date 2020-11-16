@@ -23,9 +23,7 @@ import SwiftyJSON
 
 class CircleViewController: UIViewController {
     
-    private let user = User(email: "holuck@naver.com", password: "123456", userName: "Hojoon", nickName: "Holuck",
-                            gender: .male, organization: "Dong-A Univ", birth: Date(), myCircle: [Circle(fromJson: JSON())], followCircle: [], join: Date(), profilePhoto: nil)
-    
+    private let user: User? = nil
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FeedHeaderTableViewCell.self,
@@ -65,7 +63,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         //MARK: - Bring The Model
-        guard let myCircle = user.myCircle else {fatalError("Can't Get MyCircle")}
+        guard let myCircle = user?.myCircle else {fatalError("Can't Get MyCircle")}
         let model = myCircle[indexPath.section / 4]
         
         if indexPath.section == 0 {

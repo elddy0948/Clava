@@ -24,7 +24,7 @@ class MyCircleVC: UIViewController {
         return tableView
     }()
     
-    private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(fromJson: JSON())], followCircle: [Circle(fromJson: JSON())], join: Date(), profilePhoto: nil)
+    private var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +67,9 @@ extension MyCircleVC: UITableViewDataSource {
         //section 0 ==> My Circle
         //section 1 ==> Follow Circle
         if section == 0 {
-            return user.myCircle?.count ?? 0
+            return user?.myCircle.count ?? 0
         } else if section == 1 {
-            return user.followCircle?.count ?? 0
+            return user?.myCircle.count ?? 0
         }
         return 0
     }

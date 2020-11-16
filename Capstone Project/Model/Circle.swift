@@ -10,7 +10,7 @@ import SwiftyJSON
 class Circle : NSObject, NSCoding{
 
     var category : String!
-    var circleProfilePhoto : AnyObject!
+    var circleProfilePhoto : String!
     var descriptionField : String!
     var id : Int!
     var name : String!
@@ -25,7 +25,7 @@ class Circle : NSObject, NSCoding{
             return
         }
         category = json["category"].stringValue
-        circleProfilePhoto = json["circleProfilePhoto"] as AnyObject
+        circleProfilePhoto = json["circleProfilePhoto"].stringValue
         descriptionField = json["description"].stringValue
         id = json["id"].intValue
         name = json["name"].stringValue
@@ -67,7 +67,7 @@ class Circle : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         category = aDecoder.decodeObject(forKey: "category") as? String
-        circleProfilePhoto = aDecoder.decodeObject(forKey: "circleProfilePhoto") as? AnyObject
+        circleProfilePhoto = aDecoder.decodeObject(forKey: "circleProfilePhoto") as? String
         descriptionField = aDecoder.decodeObject(forKey: "description") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int
         name = aDecoder.decodeObject(forKey: "name") as? String

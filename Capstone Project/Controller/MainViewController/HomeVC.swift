@@ -10,9 +10,9 @@ import Alamofire
 import SwiftyJSON
 
 class HomeVC: UIViewController {
-    private var userModel: User?
-    private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(fromJson: JSON())], followCircle: [Circle(fromJson: JSON())], join: Date(), profilePhoto: nil)
-    
+    private var user: User?
+    private var followCircles = [Circle]()
+    private var myCircles = [Circle]()
     //MARK: - Views
     private let feedTableView: UITableView = {
         let tableView = UITableView()
@@ -34,7 +34,7 @@ class HomeVC: UIViewController {
         
         let userEmail = UserDefaults.standard.string(forKey: "email")
         let userPassword = UserDefaults.standard.string(forKey: "password")
-
+        
         if userEmail == nil || userPassword == nil {
             let vc = LoginViewController()
             vc.modalPresentationStyle = .fullScreen
@@ -50,25 +50,52 @@ class HomeVC: UIViewController {
             AF.request(url, method: .post, parameters: parameter, encoding: JSONEncoding.default,
                        headers: [
                         "Content-Type": "application/json"
-                       ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                       ],
+                       interceptor: nil,
+                       requestModifier: nil).responseJSON { (response) in
                         switch response.result {
                         case .failure(let error):
                             print(error)
                         case .success(let data):
                             let json = JSON(data)
                             let authInfo = Auth(fromJson: json)
-                            if let userNickname = authInfo.userNickname {
-                                let requestURL = "http://3.35.240.252:8080/users/\(userNickname)"
-                                let request = AF.request(requestURL, method: .get)
-                                request.responseJSON { (response) in
-                                    print(response.result)
-                                }
-                            }
+                            UserDefaults.standard.set(authInfo.accessToken, forKey: "userToken")
+                            UserDefaults.standard.set(authInfo.userNickname, forKey: "userNickname")
+                            self.getFollowAndMyCircles()
+                            self.feedTableView.reloadData()
                         }
-            }
+                       }
         }
     }
-    
+    private func getFollowAndMyCircles() {
+        guard let userNickname = UserDefaults.standard.string(forKey: "userNickname") else {
+            fatalError("Can't get userNickname")
+        }
+        guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get accessToken")
+        }
+        let urlToRequest = "http://3.35.240.252:8080/users/found"
+        let parameters: Parameters = [
+            "userNickname" : "\(userNickname)"
+        ]
+        AF.request(urlToRequest, method: .post,
+                   parameters: parameters, encoding: JSONEncoding.default,
+                   headers: [
+                    "Authorization" : "Bearer \(accessToken)"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        let userJSON = JSON(data)
+                        self.user = User(fromJson: userJSON)
+                        self.followCircles = self.user?.followCircle ?? [Circle]()
+                        print(self.followCircles)
+                        self.myCircles = self.user?.myCircle ?? [Circle]()
+                        self.feedTableView.reloadData()
+                    }
+                   }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(feedTableView)
@@ -90,21 +117,16 @@ extension HomeVC: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        print("Follow Circles : \(followCircles.count)")
         return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print(section)
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
         //MARK: - Bring The Model
-        guard let myCircle = user.myCircle else {fatalError("Can't Get MyCircle")}
-        let model = myCircle[indexPath.section / 4]
-        
         if indexPath.section == 0 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedHeaderTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedHeaderTableViewCell else {
@@ -113,7 +135,6 @@ extension HomeVC: UITableViewDataSource {
             
             // FeedHeaderTableViewCell Delegate 채택
             cell.delegate = self
-            cell.configure(model: model)
             cell.selectionStyle = .none
             return cell
         }
@@ -174,9 +195,9 @@ extension HomeVC: UITableViewDataSource {
 
 extension HomeVC: FeedHeaderTableViewCellDelegate {
     func pressProfileName() {
-        let vc = CircleViewController()
-//        let vc = LoginViewController()
-        vc.title = "DCA"
-        navigationController?.pushViewController(vc, animated: true)
+        //        let vc = CircleViewController()
+        ////        let vc = LoginViewController()
+        //        vc.title = "DCA"
+        //        navigationController?.pushViewController(vc, animated: true)
     }
 }

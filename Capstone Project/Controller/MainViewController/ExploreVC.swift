@@ -12,13 +12,16 @@ import SwiftyJSON
 class ExploreVC: UIViewController {
     private var circles = [Circle]()
     private var json = [JSON]()
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var filteredCircles = [Circle]()
     
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search..."
-        searchBar.backgroundColor = .secondarySystemBackground
-        return searchBar
-    }()
+    private var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -33,12 +36,14 @@ class ExploreVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.topItem?.titleView = searchBar
         view.addSubview(tableView)
-        searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        searchController.searchBar.placeholder = "Search Circles..."
+        definesPresentationContext = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -46,16 +51,31 @@ class ExploreVC: UIViewController {
         tableView.frame = view.bounds
     }
     
+    private func filterContentForSearchText(searchText: String) {
+        filteredCircles = circles.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        tableView.reloadData()
+    }
+    
     private func getAllCircles() {
-        print("Dispatch Queue")
-        let urlToRequest = "http://3.35.240.252:8080/circles"
-        AF.request(urlToRequest, method: .get).responseJSON(queue: .main) { (response) in
-            self.json = JSON(response.data ?? "").arrayValue
-            for item in self.json {
-                self.circles.append(Circle(fromJson: item))
-            }
-            self.tableView.reloadData()
+        let urlToRequest = "http://3.35.240.252:8080/circles/all"
+        guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get user Token")
         }
+        AF.request(urlToRequest, method: .post, parameters: nil, encoding: JSONEncoding.default,
+                   headers: [
+                    "Authorization" : "Bearer \(userToken)"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        self.json = JSON(data).arrayValue
+                        for item in self.json {
+                            self.circles.append(Circle(fromJson: item))
+                        }
+                        self.tableView.reloadData()
+                    }
+                   }
     }
 }
 
@@ -68,14 +88,22 @@ extension ExploreVC: UITableViewDelegate {
 //MARK: - TableViewDataSource
 extension ExploreVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return circles.count
+        if isFiltering {
+            return filteredCircles.count
+        } else {
+            return circles.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ExploreTableViewCell.reuseIdentifier, for: indexPath) as? ExploreTableViewCell else {
             fatalError("Error at ExploreTableViewCell")
         }
-        cell.configure(with: circles[indexPath.row])
+        if isFiltering {
+            cell.configure(with: filteredCircles[indexPath.row])
+        } else {
+            cell.configure(with: circles[indexPath.row])
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -83,29 +111,10 @@ extension ExploreVC: UITableViewDataSource {
     }
 }
 
-
-//MARK: - SearchBarDelegate
-extension ExploreVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        didCancelSearch()
-        guard let text = searchBar.text,
-              !text.isEmpty else {
-            return
-        }
-        query(text)
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain,
-                                                            target: self, action: #selector(didCancelSearch))
-    }
-    
-    @objc private func didCancelSearch() {
-        searchBar.resignFirstResponder()
-        navigationItem.rightBarButtonItem = nil
-    }
-    
-    private func query(_ text: String) {
-        //perform the search in the back end
+//MARK: - UISearchResultsUpdating
+extension ExploreVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchText: searchBar.text!)
     }
 }

@@ -13,7 +13,7 @@ class MyPageVC: UIViewController {
     //Collection View?
     
     
-    private var user = User(email: "elddy@naver.com", password: "1234", userName: "Holuck", nickName: "Holuck", gender: .male, organization: "Dong-A", birth: Date(), myCircle: [Circle(fromJson: JSON())], followCircle: [Circle(fromJson: JSON())], join: Date(), profilePhoto: nil)
+    private var user: User?
     
     // View For User Information
     private let uiView: UIView = {
@@ -89,9 +89,9 @@ extension MyPageVC: UITableViewDataSource {
         //section 0 ==> My Circle
         //section 1 ==> Follow Circle
         if section == 0 {
-            return user.myCircle?.count ?? 0
+            return user?.myCircle?.count ?? 0
         } else if section == 1 {
-            return user.followCircle?.count ?? 0
+            return user?.followCircle?.count ?? 0
         }
         return 0
     }

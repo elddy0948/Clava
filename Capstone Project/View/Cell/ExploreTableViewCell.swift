@@ -38,11 +38,12 @@ class ExploreTableViewCell: UITableViewCell {
         profileImageView.frame = CGRect(x: 0, y: 0, width: self.height, height: self.height)
         profileImageView.layer.masksToBounds = true
         profileImageView.layer.cornerRadius = self.height / 2
-        circleLabel.frame = CGRect(x: profileImageView.right + 10, y: 0, width: self.width - profileImageView.width, height: self.height)
+        circleLabel.frame = CGRect(x: profileImageView.right + 10, y: 0,
+                                   width: self.width - profileImageView.width, height: self.height)
     }
     
     public func configure(with model: Circle) {
         circleLabel.text = model.name
-        
+        print(model.circleProfilePhoto ?? "Can't get URL")
     }
 }
