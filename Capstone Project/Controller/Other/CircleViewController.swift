@@ -46,7 +46,7 @@ class CircleViewController: UIViewController {
         circleHeaderView.configure(with: circleModel)
         view.addSubview(circleHeaderView)
         view.addSubview(tableView)
-        print(circleModel?.id ?? 0)
+        print(circleModel?.circlePosts)
     }
     
     override func viewDidLayoutSubviews() {

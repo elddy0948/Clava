@@ -47,8 +47,7 @@ extension LoginViewController: LoginViewDelegate {
                     switch response.result {
                     case .failure(let error):
                         print(error)
-                    case .success(let data):
-                        print(data)
+                    case .success(_):
                         UserDefaults.standard.set("\(email)", forKey: "email")
                         UserDefaults.standard.set("\(password)", forKey: "password")
                         self.dismiss(animated: true, completion: nil)
