@@ -12,7 +12,7 @@ class FeedCommentTableViewCell: UITableViewCell {
     
     private let userName: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         label.text = "holuck"
         label.font = .systemFont(ofSize: 17, weight: .bold)
         label.textColor = .label
@@ -57,5 +57,9 @@ class FeedCommentTableViewCell: UITableViewCell {
         userName.frame = CGRect(x: 8, y: 10, width: contentView.width / 4, height: contentView.height / 4)
         comments.frame = CGRect(x: userName.right + 4, y: 10, width: contentView.width - userName.width, height: contentView.height / 4)
         moreCommentButton.frame = CGRect(x: 0, y: contentView.height - 24, width: contentView.width, height: comments.height)
+    }
+    public func configure(with model: Post?) {
+        self.userName.text = model?.author
+        self.comments.text = model?.descriptionField
     }
 }

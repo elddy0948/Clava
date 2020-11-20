@@ -27,9 +27,6 @@ class Post : NSObject, NSCoding{
     var postPhoto : [Photo]!
     var writeDate : String!
 
-    /**
-     * Instantiate the instance using the passed json values to set the properties values
-     */
     init(fromJson json: JSON!){
         if json.isEmpty{
             return
@@ -85,10 +82,6 @@ class Post : NSObject, NSCoding{
         return dictionary
     }
 
-    /**
-    * NSCoding required initializer.
-    * Fills the data from the passed decoder
-    */
     @objc required init(coder aDecoder: NSCoder)
     {
         author = aDecoder.decodeObject(forKey: "author") as? String
@@ -101,10 +94,6 @@ class Post : NSObject, NSCoding{
         writeDate = aDecoder.decodeObject(forKey: "write_Date") as? String
     }
 
-    /**
-    * NSCoding required method.
-    * Encodes mode properties into the decoder
-    */
     func encode(with aCoder: NSCoder)
     {
         if author != nil{
@@ -131,7 +120,5 @@ class Post : NSObject, NSCoding{
         if writeDate != nil{
             aCoder.encode(writeDate, forKey: "write_Date")
         }
-
     }
-
 }

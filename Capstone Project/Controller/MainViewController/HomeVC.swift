@@ -11,8 +11,7 @@ import SwiftyJSON
 
 class HomeVC: UIViewController {
     private var user: User?
-    private var followCircles = [Circle]()
-    private var myCircles = [Circle]()
+    private var circlesForFeed = [Circle]()
     //MARK: - Views
     private let feedTableView: UITableView = {
         let tableView = UITableView()
@@ -93,8 +92,7 @@ class HomeVC: UIViewController {
                     case .success(let data):
                         let userJSON = JSON(data)
                         self.user = User(fromJson: userJSON)
-                        self.followCircles = self.user?.followCircle ?? [Circle]()
-                        self.myCircles = self.user?.myCircle ?? [Circle]()
+                        self.circlesForFeed = (self.user?.followCircle ?? [Circle]()) + (self.user?.myCircle ?? [Circle]())
                         self.feedTableView.reloadData()
                     }
                    }
@@ -120,7 +118,7 @@ extension HomeVC: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4 * (followCircles.count)
+        return 4 * (circlesForFeed.count)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,7 +133,7 @@ extension HomeVC: UITableViewDataSource {
                 fatalError("FeedHeaderTableViewCell")
             }
             cell.delegate = self
-            cell.configure(model: followCircles[indexPath.section / 4])
+            cell.configure(model: circlesForFeed[indexPath.section / 4])
             cell.selectionStyle = .none
             return cell
         }
@@ -197,7 +195,7 @@ extension HomeVC: UITableViewDataSource {
 extension HomeVC: FeedHeaderTableViewCellDelegate {
     func pressProfileName(goto circle: Circle?) {
         let vc = CircleViewController()
-        vc.circleModel = circle
+        vc.configure(with: (circle?.name)!)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

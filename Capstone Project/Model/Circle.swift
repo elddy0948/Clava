@@ -8,7 +8,7 @@ import SwiftyJSON
 
 
 class Circle : NSObject, NSCoding{
-
+    
     var category : String!
     var circleFollower : [User]!
     var circleMember : [CircleMember]!
@@ -20,7 +20,7 @@ class Circle : NSObject, NSCoding{
     var name : String!
     var organization : String!
     var place : String!
-
+    
     init(fromJson json: JSON!){
         if json.isEmpty{
             return
@@ -51,7 +51,7 @@ class Circle : NSObject, NSCoding{
         organization = json["organization"].stringValue
         place = json["place"].stringValue
     }
-
+    
     func toDictionary() -> [String:Any]
     {
         var dictionary = [String:Any]()
@@ -62,19 +62,22 @@ class Circle : NSObject, NSCoding{
             dictionary["circleFollower"] = circleFollower
         }
         if circleMember != nil{
-        var dictionaryElements = [[String:Any]]()
-        for circleMemberElement in circleMember {
-            dictionaryElements.append(circleMemberElement.toDictionary())
-        }
-        dictionary["circleMember"] = dictionaryElements
+            var dictionaryElements = [[String:Any]]()
+            for circleMemberElement in circleMember {
+                dictionaryElements.append(circleMemberElement.toDictionary())
+            }
+            dictionary["circleMember"] = dictionaryElements
+            
+            
         }
         if circlePosts != nil{
-        var dictionaryElements = [[String:Any]]()
-        for circlePostsElement in circlePosts {
-            dictionaryElements.append(circlePostsElement.toDictionary())
+            var dictionaryElements = [[String:Any]]()
+            for circlePostsElement in circlePosts {
+                dictionaryElements.append(circlePostsElement.toDictionary())
+            }
+            dictionary["circlePosts"] = dictionaryElements
         }
-        dictionary["circlePosts"] = dictionaryElements
-        }
+
         if circleProfilePhoto != nil{
             dictionary["circleProfilePhoto"] = circleProfilePhoto
         }
@@ -98,7 +101,7 @@ class Circle : NSObject, NSCoding{
         }
         return dictionary
     }
-
+    
     @objc required init(coder aDecoder: NSCoder)
     {
         category = aDecoder.decodeObject(forKey: "category") as? String
@@ -113,7 +116,7 @@ class Circle : NSObject, NSCoding{
         organization = aDecoder.decodeObject(forKey: "organization") as? String
         place = aDecoder.decodeObject(forKey: "place") as? String
     }
-
+    
     func encode(with aCoder: NSCoder)
     {
         if category != nil{
@@ -149,7 +152,7 @@ class Circle : NSObject, NSCoding{
         if place != nil{
             aCoder.encode(place, forKey: "place")
         }
-
+        
     }
-
+    
 }

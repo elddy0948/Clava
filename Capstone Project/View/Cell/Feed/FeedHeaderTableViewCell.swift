@@ -84,7 +84,7 @@ class FeedHeaderTableViewCell: UITableViewCell {
     
     
     //MARK: - public
-    public func configure(model: Circle) {
+    public func configure(model: Circle?) {
         self.circle = model
         profileName.setTitle(self.circle?.name, for: .normal)
     }

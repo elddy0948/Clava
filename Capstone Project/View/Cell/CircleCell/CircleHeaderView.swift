@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CircleHeaderView: UIView {
     
@@ -86,7 +87,9 @@ class CircleHeaderView: UIView {
     }
     
     public func configure(with model: Circle?) {
-        circleArea.text = model?.place
+        circleImageView.sd_setImage(with: URL(string: "\(model?.circleProfilePhoto ?? "")"), completed: nil)
+        print(model?.name ?? "no image")
+        circleArea.text = model?.name
         circleBelong.text = model?.organization
         circleCategory.text = model?.category
     }

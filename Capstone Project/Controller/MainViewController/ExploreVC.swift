@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class ExploreVC: UIViewController {
     private var circles = [Circle]()
-    private var json = [JSON]()
     private let searchController = UISearchController(searchResultsController: nil)
     private var filteredCircles = [Circle]()
     
@@ -31,11 +30,12 @@ class ExploreVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getAllCircles()
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getAllCircles()
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -69,8 +69,8 @@ class ExploreVC: UIViewController {
                     case .failure(let error):
                         print(error)
                     case .success(let data):
-                        self.json = JSON(data).arrayValue
-                        for item in self.json {
+                        let json = JSON(data).arrayValue
+                        for item in json {
                             self.circles.append(Circle(fromJson: item))
                         }
                         self.tableView.reloadData()
@@ -104,7 +104,17 @@ extension ExploreVC: UITableViewDataSource {
         } else {
             cell.configure(with: circles[indexPath.row])
         }
+        cell.selectionStyle = .none
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let circleViewController = CircleViewController()
+        if isFiltering {
+            circleViewController.configure(with: filteredCircles[indexPath.row].name)
+        } else {
+            circleViewController.configure(with: circles[indexPath.row].name)
+        }
+        navigationController?.pushViewController(circleViewController, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
