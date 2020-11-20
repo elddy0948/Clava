@@ -78,7 +78,6 @@ class HomeVC: UIViewController {
         let parameters: Parameters = [
             "nickName" : "\(userNickname)"
         ]
-        print(parameters)
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization" : "Bearer \(accessToken)"

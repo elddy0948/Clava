@@ -11,7 +11,7 @@ class FollowTableViewCell: UITableViewCell {
 
     static let reuseIdentifier = "FollowTableViewCell"
     
-    private var model: BetweenUserCircle?
+    private var model: Circle?
     
     //MARK: - Views
     private let circlePhoto: UIImageView = {
@@ -49,6 +49,7 @@ class FollowTableViewCell: UITableViewCell {
     }
     
     //MARK: - public
-    public func configure(with model: BetweenUserCircle) {
+    public func configure(with model: Circle?) {
+        self.circleName.text = model?.name
     }
 }

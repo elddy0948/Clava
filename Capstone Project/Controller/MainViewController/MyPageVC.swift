@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class MyPageVC: UIViewController {
     
@@ -33,9 +34,11 @@ class MyPageVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        getUserInfo()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(didTapSettingButton))
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"),
+                                                            style: .plain, target: self, action: #selector(didTapSettingButton))
+        
         view.addSubview(tableView)
         view.addSubview(uiView)
     }
@@ -51,7 +54,36 @@ class MyPageVC: UIViewController {
         uiView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.width / 1.5)
         tableView.frame = CGRect(x: 0, y: uiView.bottom, width: view.width, height: view.height / 1.5)
     }
-
+    
+    private func getUserInfo() {
+        guard let userNickname = UserDefaults.standard.string(forKey: "userNickname") else {
+            fatalError("Can't get userNickname")
+        }
+        guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get accessToken")
+        }
+        let urlToRequest = "http://3.35.240.252:8080/users/found"
+        let parameters: Parameters = [
+            "nickName" : "\(userNickname)"
+        ]
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer \(accessToken)"
+        ]
+        AF.request(urlToRequest, method: .post,
+                   parameters: parameters, encoding: JSONEncoding.default,
+                   headers: headers, interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        let userJSON = JSON(data)
+                        self.user = User(fromJson: userJSON)
+                        self.tableView.reloadData()
+                    }
+                   }
+    }
+    
 }
 
 extension MyPageVC: UITableViewDelegate {
@@ -99,6 +131,8 @@ extension MyPageVC: UITableViewDataSource {
                                                            for: indexPath) as? MyCircleTableViewCell else {
                 fatalError("My Circle TableviewCell Error!")
             }
+            cell.selectionStyle = .none
+            cell.configure(with: user?.myCircle[indexPath.row])
             tableView.separatorStyle = .none
             return cell
         } else if indexPath.section == 1 {
@@ -106,9 +140,20 @@ extension MyPageVC: UITableViewDataSource {
                                                            for: indexPath) as? FollowTableViewCell else {
                 fatalError("Follow TableviewCell Error!")
             }
+            cell.selectionStyle = .none
+            cell.configure(with: user?.followCircle[indexPath.row])
             tableView.separatorStyle = .none
             return cell
         }
         return UITableViewCell()
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let circleViewController = CircleViewController()
+        if indexPath.section == 0 {
+            circleViewController.configure(with: user?.myCircle[indexPath.row].name ?? "")
+        } else if indexPath.section == 1 {
+            circleViewController.configure(with: user?.followCircle[indexPath.row].name ?? "")
+        }
+        navigationController?.pushViewController(circleViewController, animated: true)
     }
 }

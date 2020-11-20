@@ -10,7 +10,7 @@ import UIKit
 class MyCircleTableViewCell: UITableViewCell {
     static let reuseIdentifier = "MyCircleTableViewCell"
     
-    private var model: BetweenUserCircle?
+    private var model: Circle?
     
     //MARK: - Views
     private let circlePhoto: UIImageView = {
@@ -49,6 +49,7 @@ class MyCircleTableViewCell: UITableViewCell {
     }
     
     //MARK: - public
-    public func configure(with model: BetweenUserCircle) {
+    public func configure(with model: Circle?) {
+        self.circleName.text = model?.name
     }
 }
