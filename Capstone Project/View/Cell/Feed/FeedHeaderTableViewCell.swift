@@ -14,12 +14,13 @@ import UIKit
  */
 
 protocol FeedHeaderTableViewCellDelegate: AnyObject {
-    func pressProfileName()
+    func pressProfileName(goto circle: Circle?)
 }
 
 class FeedHeaderTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "FeedHeaderTableViewCell"
+    private var circle: Circle?
         
     weak var delegate: FeedHeaderTableViewCellDelegate?
     
@@ -84,11 +85,12 @@ class FeedHeaderTableViewCell: UITableViewCell {
     
     //MARK: - public
     public func configure(model: Circle) {
-        profileName.setTitle(model.name, for: .normal)
+        self.circle = model
+        profileName.setTitle(self.circle?.name, for: .normal)
     }
     
     //MARK: - Actions
     @objc private func pressProfileName() {
-        delegate?.pressProfileName()
+        delegate?.pressProfileName(goto: self.circle)
     }
 }

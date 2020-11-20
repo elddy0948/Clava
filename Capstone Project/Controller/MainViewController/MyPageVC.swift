@@ -11,8 +11,6 @@ import SwiftyJSON
 class MyPageVC: UIViewController {
     
     //Collection View?
-    
-    
     private var user: User?
     
     // View For User Information
@@ -61,7 +59,6 @@ extension MyPageVC: UITableViewDelegate {
 }
 
 extension MyPageVC: UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -114,6 +111,4 @@ extension MyPageVC: UITableViewDataSource {
         }
         return UITableViewCell()
     }
-    
-    
 }

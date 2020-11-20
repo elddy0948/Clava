@@ -22,8 +22,10 @@ import SwiftyJSON
  */
 
 class CircleViewController: UIViewController {
+    var circleModel: Circle? = nil
     
-    private let user: User? = nil
+    private let circleHeaderView = CircleHeaderView()
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FeedHeaderTableViewCell.self,
@@ -41,18 +43,23 @@ class CircleViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        circleHeaderView.configure(with: circleModel)
+        view.addSubview(circleHeaderView)
         view.addSubview(tableView)
+        print(circleModel?.id ?? 0)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+//        circleHeaderView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.width / 1.5)
+//        tableView.frame = CGRect(x: 0, y: circleHeaderView.bottom, width: view.width, height: view.height / 1.5)
         tableView.frame = view.bounds
     }
 }
 
 extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 4 + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,25 +67,16 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
         //MARK: - Bring The Model
-        guard let myCircle = user?.myCircle else {fatalError("Can't Get MyCircle")}
-        let model = myCircle[indexPath.section / 4]
-        
-        if indexPath.section == 0 {
+        if indexPath.section % 4 == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedHeaderTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedHeaderTableViewCell else {
                 fatalError("FeedHeaderTableViewCell")
             }
-            
-            // FeedHeaderTableViewCell Delegate 채택
-            cell.delegate = self
-            cell.configure(model: model)
             cell.selectionStyle = .none
             return cell
         }
-        else if indexPath.section == 1 {
+        else if indexPath.section % 4 == 1 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedPostTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
@@ -86,7 +84,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         }
-        else if indexPath.section == 2 {
+        else if indexPath.section % 4 == 2 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedActionTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedActionTableViewCell else {
                 fatalError("FeedActionTableViewCell")
@@ -94,7 +92,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         }
-        else if indexPath.section == 3 {
+        else if indexPath.section % 4 == 3 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FeedCommentTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
@@ -103,7 +101,6 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
-        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
@@ -133,10 +130,11 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            return CircleHeaderView()
+            return circleHeaderView
         }
-        return nil
+        return UIView()
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return view.width
@@ -145,10 +143,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension CircleViewController: FeedHeaderTableViewCellDelegate {
-    func pressProfileName() {
-    }    
-}
+
 
 
 

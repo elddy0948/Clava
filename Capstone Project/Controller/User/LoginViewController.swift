@@ -44,12 +44,14 @@ extension LoginViewController: LoginViewDelegate {
                    headers: [
                     "Content-Type": "application/json"
                    ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
-                    if response.error == nil {
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        print(data)
                         UserDefaults.standard.set("\(email)", forKey: "email")
                         UserDefaults.standard.set("\(password)", forKey: "password")
                         self.dismiss(animated: true, completion: nil)
-                    } else {
-                        print("Login 불가!")
                     }
         }
     }

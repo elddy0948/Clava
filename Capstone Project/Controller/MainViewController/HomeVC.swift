@@ -47,7 +47,8 @@ class HomeVC: UIViewController {
                 "password": "\(password)"
             ]
             let url: String = "http://3.35.240.252:8080/auth"
-            AF.request(url, method: .post, parameters: parameter, encoding: JSONEncoding.default,
+            AF.request(url, method: .post, parameters: parameter,
+                       encoding: JSONEncoding.default,
                        headers: [
                         "Content-Type": "application/json"
                        ],
@@ -76,13 +77,16 @@ class HomeVC: UIViewController {
         }
         let urlToRequest = "http://3.35.240.252:8080/users/found"
         let parameters: Parameters = [
-            "userNickname" : "\(userNickname)"
+            "nickName" : "\(userNickname)"
+        ]
+        print(parameters)
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization" : "Bearer \(accessToken)"
         ]
         AF.request(urlToRequest, method: .post,
                    parameters: parameters, encoding: JSONEncoding.default,
-                   headers: [
-                    "Authorization" : "Bearer \(accessToken)"
-                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                   headers: headers, interceptor: nil, requestModifier: nil).responseJSON { (response) in
                     switch response.result {
                     case .failure(let error):
                         print(error)
@@ -90,7 +94,6 @@ class HomeVC: UIViewController {
                         let userJSON = JSON(data)
                         self.user = User(fromJson: userJSON)
                         self.followCircles = self.user?.followCircle ?? [Circle]()
-                        print(self.followCircles)
                         self.myCircles = self.user?.myCircle ?? [Circle]()
                         self.feedTableView.reloadData()
                     }
@@ -117,8 +120,7 @@ extension HomeVC: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("Follow Circles : \(followCircles.count)")
-        return 4
+        return 4 * (followCircles.count)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,18 +129,17 @@ extension HomeVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //MARK: - Bring The Model
-        if indexPath.section == 0 {
+        if indexPath.section % 4 == 0 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedHeaderTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedHeaderTableViewCell else {
                 fatalError("FeedHeaderTableViewCell")
             }
-            
-            // FeedHeaderTableViewCell Delegate 채택
             cell.delegate = self
+            cell.configure(model: followCircles[indexPath.section / 4])
             cell.selectionStyle = .none
             return cell
         }
-        else if indexPath.section == 1 {
+        else if indexPath.section % 4 == 1 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedPostTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
@@ -146,7 +147,7 @@ extension HomeVC: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         }
-        else if indexPath.section == 2 {
+        else if indexPath.section % 4 == 2 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedActionTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedActionTableViewCell else {
                 fatalError("FeedActionTableViewCell")
@@ -154,7 +155,7 @@ extension HomeVC: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         }
-        else if indexPath.section == 3 {
+        else if indexPath.section % 4 == 3 {
             guard let cell = feedTableView.dequeueReusableCell(withIdentifier: FeedCommentTableViewCell.reuseIdentifier,
                                                                for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
@@ -166,13 +167,13 @@ extension HomeVC: UITableViewDataSource {
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
+        if indexPath.section % 4 == 0 {
             return 60
-        } else if indexPath.section == 1 {
+        } else if indexPath.section % 4 == 1 {
             return tableView.width
-        } else if indexPath.section == 2 {
+        } else if indexPath.section % 4 == 2 {
             return 60
-        } else if indexPath.section == 3 {
+        } else if indexPath.section % 4 == 3 {
             return 80
         }
         return 0
@@ -194,10 +195,9 @@ extension HomeVC: UITableViewDataSource {
 
 
 extension HomeVC: FeedHeaderTableViewCellDelegate {
-    func pressProfileName() {
-        //        let vc = CircleViewController()
-        ////        let vc = LoginViewController()
-        //        vc.title = "DCA"
-        //        navigationController?.pushViewController(vc, animated: true)
+    func pressProfileName(goto circle: Circle?) {
+        let vc = CircleViewController()
+        vc.circleModel = circle
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
