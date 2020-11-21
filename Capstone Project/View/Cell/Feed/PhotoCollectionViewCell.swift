@@ -22,19 +22,24 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.clipsToBounds = true
         contentView.addSubview(imageView)
+        contentView.backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.frame = self.bounds
+        imageView.frame = contentView.bounds
     }
-    public func configure(with image: String) {
-        let url = URL(string: image)
-        print(url)
+    public func configure(with image: Photo) {
+        let url = URL(string: image.photoUrl)
         imageView.sd_setImage(with: url, completed: nil)
     }
 }

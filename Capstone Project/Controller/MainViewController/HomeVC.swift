@@ -94,7 +94,9 @@ class HomeVC: UIViewController {
                         self.user = User(fromJson: userJSON)
                         self.circlesForFeed = (self.user?.followCircle ?? [Circle]()) + (self.user?.myCircle ?? [Circle]())
                         for circle in self.circlesForFeed {
-                            self.postsForFeed += circle.circlePosts
+                            for post in circle.circlePosts {
+                                self.postsForFeed.append(post)
+                            }
                         }
                         self.feedTableView.reloadData()
                     }
@@ -103,6 +105,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(feedTableView)
+        view.backgroundColor = .systemBackground
         feedTableView.delegate = self
         feedTableView.dataSource = self
     }
@@ -136,9 +139,9 @@ extension HomeVC: UITableViewDataSource {
                 fatalError("FeedHeaderTableViewCell")
             }
             cell.delegate = self
-            let post = postsForFeed[indexPath.row / 4]
+            let post = postsForFeed[indexPath.section / 4]
             for circle in circlesForFeed {
-                if circle.id == postsForFeed[indexPath.row / 4].circleId {
+                if circle.id == postsForFeed[indexPath.section / 4].circleId {
                     cell.configure(circle: circle, post: post)
                 }
             }
@@ -150,7 +153,7 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
             }
-            cell.configure(model: postsForFeed[indexPath.row / 4])
+            cell.configure(model: postsForFeed[indexPath.section / 4])
             cell.selectionStyle = .none
             return cell
         }
@@ -167,6 +170,7 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
             }
+            cell.configure(with: postsForFeed[indexPath.section / 4])
             cell.selectionStyle = .none
             return cell
         }

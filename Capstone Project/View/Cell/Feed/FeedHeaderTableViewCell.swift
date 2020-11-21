@@ -70,6 +70,12 @@ class FeedHeaderTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profileImage.image = nil
+        profileName.setTitle(nil, for: .normal)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

@@ -52,6 +52,12 @@ class FeedCommentTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        userName.text = nil
+        comments.text = nil
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         userName.frame = CGRect(x: 8, y: 10, width: contentView.width / 4, height: contentView.height / 4)
