@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 /*
  
@@ -26,7 +27,9 @@ class FeedHeaderTableViewCell: UITableViewCell {
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -84,9 +87,14 @@ class FeedHeaderTableViewCell: UITableViewCell {
     
     
     //MARK: - public
-    public func configure(model: Circle?) {
-        self.circle = model
+    public func configure(circle: Circle?, post: Post?) {
+        self.circle = circle
+        guard let circlePhoto = self.circle?.circleProfilePhoto else {
+            fatalError("Can't get Profile Photo")
+        }
+        let url = URL(string: circlePhoto)
         profileName.setTitle(self.circle?.name, for: .normal)
+        profileImage.sd_setImage(with: url, completed: nil)
     }
     
     //MARK: - Actions

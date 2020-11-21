@@ -14,6 +14,7 @@ class CircleHeaderView: UIView {
      -  Header
         - 동아리 이미지
         - 소속  / 위치  / 카테고리
+        - 팔로우하기 버튼 / 가입하기 버튼
         - 설명
      */
     
@@ -48,6 +49,20 @@ class CircleHeaderView: UIView {
         label.textColor = .label
         return label
     }()
+    
+    //MARK: - Button View
+    private let followButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("팔로우하기", for: .normal)
+        return button
+    }()
+    
+    private let registerButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("가입하기", for: .normal)
+        return button
+    }()
+    
     private let circleDescription: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .secondarySystemBackground
@@ -63,7 +78,6 @@ class CircleHeaderView: UIView {
         self.addSubview(circleBelong)
         self.addSubview(circleCategory)
         self.addSubview(circleDescription)
-
     }
     
     required init?(coder: NSCoder) {

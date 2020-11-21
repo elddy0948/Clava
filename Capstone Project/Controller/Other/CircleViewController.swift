@@ -25,7 +25,7 @@ import SwiftyJSON
 class CircleViewController: UIViewController {
     private var circleModel: Circle?
     private let circleHeaderView = CircleHeaderView()
-    private var circleName: String = ""
+    private var circleID: Int = 0
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -43,7 +43,7 @@ class CircleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure(with: self.circleName)
+        configure(with: self.circleID)
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(circleHeaderView)
@@ -54,11 +54,11 @@ class CircleViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    public func configure(with circleName: String) {
-        self.circleName = circleName
+    public func configure(with circleID: Int) {
+        self.circleID = circleID
         let urlToRequest = "http://3.35.240.252:8080/circles/found"
         let parameters: Parameters = [
-            "circleName" : "\(self.circleName)"
+            "circleId" : "\(circleID)"
         ]
         guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
             fatalError("Can't get user Token")
@@ -105,7 +105,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedHeaderTableViewCell else {
                 fatalError("FeedHeaderTableViewCell")
             }
-            cell.configure(model: circleModel)
+            cell.configure(circle: circleModel, post: circleModel?.circlePosts[indexPath.row])
             cell.selectionStyle = .none
             return cell
         }

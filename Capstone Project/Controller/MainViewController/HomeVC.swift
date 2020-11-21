@@ -12,6 +12,7 @@ import SwiftyJSON
 class HomeVC: UIViewController {
     private var user: User?
     private var circlesForFeed = [Circle]()
+    private var postsForFeed = [Post]()
     //MARK: - Views
     private let feedTableView: UITableView = {
         let tableView = UITableView()
@@ -92,6 +93,9 @@ class HomeVC: UIViewController {
                         let userJSON = JSON(data)
                         self.user = User(fromJson: userJSON)
                         self.circlesForFeed = (self.user?.followCircle ?? [Circle]()) + (self.user?.myCircle ?? [Circle]())
+                        for circle in self.circlesForFeed {
+                            self.postsForFeed += circle.circlePosts
+                        }
                         self.feedTableView.reloadData()
                     }
                    }
@@ -117,7 +121,7 @@ extension HomeVC: UITableViewDelegate {
 //MARK: - UITableViewDataSource
 extension HomeVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4 * (circlesForFeed.count)
+        return 4 * (postsForFeed.count)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,7 +136,12 @@ extension HomeVC: UITableViewDataSource {
                 fatalError("FeedHeaderTableViewCell")
             }
             cell.delegate = self
-            cell.configure(model: circlesForFeed[indexPath.section / 4])
+            let post = postsForFeed[indexPath.row / 4]
+            for circle in circlesForFeed {
+                if circle.id == postsForFeed[indexPath.row / 4].circleId {
+                    cell.configure(circle: circle, post: post)
+                }
+            }
             cell.selectionStyle = .none
             return cell
         }
@@ -141,6 +150,7 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
             }
+            cell.configure(model: postsForFeed[indexPath.row / 4])
             cell.selectionStyle = .none
             return cell
         }
@@ -194,7 +204,7 @@ extension HomeVC: UITableViewDataSource {
 extension HomeVC: FeedHeaderTableViewCellDelegate {
     func pressProfileName(goto circle: Circle?) {
         let vc = CircleViewController()
-        vc.configure(with: (circle?.name)!)
+        vc.configure(with: (circle?.id)!)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

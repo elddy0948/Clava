@@ -25,6 +25,7 @@
 		B48AC15825487C2500669D8E /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC15725487C2500669D8E /* UserInfoView.swift */; };
 		B48AC16225489C5C00669D8E /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC16125489C5C00669D8E /* CommentViewController.swift */; };
 		B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48AC16425489C7B00669D8E /* CircleViewController.swift */; };
+		B49308232569271D00C6A2E7 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49308222569271D00C6A2E7 /* PhotoCollectionViewCell.swift */; };
 		B4A920DF254B3A6500C429D2 /* CirclePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A920DE254B3A6500C429D2 /* CirclePostTableViewCell.swift */; };
 		B4A920E2254B3D2400C429D2 /* CircleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A920E1254B3D2400C429D2 /* CircleHeaderView.swift */; };
 		B4EC06E52539CC930087F59D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC06E42539CC930087F59D /* AppDelegate.swift */; };
@@ -66,6 +67,7 @@
 		B48AC15725487C2500669D8E /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		B48AC16125489C5C00669D8E /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		B48AC16425489C7B00669D8E /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
+		B49308222569271D00C6A2E7 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		B4A920DE254B3A6500C429D2 /* CirclePostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePostTableViewCell.swift; sourceTree = "<group>"; };
 		B4A920E1254B3D2400C429D2 /* CircleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleHeaderView.swift; sourceTree = "<group>"; };
 		B4EC06E12539CC930087F59D /* Capstone Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Capstone Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +252,7 @@
 				B4315F67253C313600858073 /* FeedPostTableViewCell.swift */,
 				B4315F66253C313600858073 /* FeedActionTableViewCell.swift */,
 				B4315F69253C313600858073 /* FeedCommentTableViewCell.swift */,
+				B49308222569271D00C6A2E7 /* PhotoCollectionViewCell.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				B4FFD28E254E9BEB00C27E8E /* LoginViewController.swift in Sources */,
 				B4684426253C1F35009D181A /* Circle.swift in Sources */,
 				B46F13CF256189F500C397BB /* ExploreTableViewCell.swift in Sources */,
+				B49308232569271D00C6A2E7 /* PhotoCollectionViewCell.swift in Sources */,
 				B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */,
 				B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */,
 				B4EC07072539D21A0087F59D /* MyCircleVC.swift in Sources */,

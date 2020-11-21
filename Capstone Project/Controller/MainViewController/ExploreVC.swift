@@ -110,9 +110,9 @@ extension ExploreVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let circleViewController = CircleViewController()
         if isFiltering {
-            circleViewController.configure(with: filteredCircles[indexPath.row].name)
+            circleViewController.configure(with: filteredCircles[indexPath.row].id)
         } else {
-            circleViewController.configure(with: circles[indexPath.row].name)
+            circleViewController.configure(with: circles[indexPath.row].id)
         }
         navigationController?.pushViewController(circleViewController, animated: true)
     }

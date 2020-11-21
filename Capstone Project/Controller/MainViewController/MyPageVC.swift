@@ -150,9 +150,9 @@ extension MyPageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let circleViewController = CircleViewController()
         if indexPath.section == 0 {
-            circleViewController.configure(with: user?.myCircle[indexPath.row].name ?? "")
+            circleViewController.configure(with: user?.myCircle[indexPath.row].id ?? 0)
         } else if indexPath.section == 1 {
-            circleViewController.configure(with: user?.followCircle[indexPath.row].name ?? "")
+            circleViewController.configure(with: user?.followCircle[indexPath.row].id ?? 0)
         }
         navigationController?.pushViewController(circleViewController, animated: true)
     }
