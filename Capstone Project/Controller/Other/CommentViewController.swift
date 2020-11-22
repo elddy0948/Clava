@@ -77,6 +77,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError("Can't Create CommentTableViewCell")
         }
         cell.configure(with: comments[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

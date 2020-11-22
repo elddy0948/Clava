@@ -55,6 +55,8 @@ class CircleViewController: UIViewController {
         tableView.frame = view.bounds
     }
     public func configure(with circleID: Int) {
+        //현재 로그인 한 유저가 관리자면 수정 버튼 추가
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
         self.circleID = circleID
         let urlToRequest = "http://3.35.240.252:8080/circles/found"
         let parameters: Parameters = [
@@ -77,6 +79,9 @@ class CircleViewController: UIViewController {
                         self.tableView.reloadData()
                     }
                    }
+    }
+    @objc private func didTapAddButton() {
+        print("didTapAddButton")
     }
 }
 

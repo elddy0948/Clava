@@ -22,7 +22,9 @@ class CircleHeaderView: UIView {
     
     private let circleImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -31,6 +33,7 @@ class CircleHeaderView: UIView {
         label.numberOfLines = 1
         label.textColor = .label
         label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
     
@@ -39,6 +42,7 @@ class CircleHeaderView: UIView {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.textColor = .label
+        label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
     
@@ -47,6 +51,7 @@ class CircleHeaderView: UIView {
         label.numberOfLines = 1
         label.textAlignment = .center
         label.textColor = .label
+        label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
     
@@ -54,19 +59,23 @@ class CircleHeaderView: UIView {
     private let followButton: UIButton = {
         let button = UIButton()
         button.setTitle("팔로우하기", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = .link
         return button
     }()
     
     private let registerButton: UIButton = {
         let button = UIButton()
         button.setTitle("가입하기", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = .link
         return button
     }()
     
     private let circleDescription: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .secondarySystemBackground
-        textView.text = "Here is Description"
+        textView.backgroundColor = .systemBackground
+        textView.text = "설명이 없어요 ㅠ..ㅠ"
         return textView
     }()
     
@@ -78,6 +87,8 @@ class CircleHeaderView: UIView {
         self.addSubview(circleBelong)
         self.addSubview(circleCategory)
         self.addSubview(circleDescription)
+        self.addSubview(followButton)
+        self.addSubview(registerButton)
     }
     
     required init?(coder: NSCoder) {
@@ -96,15 +107,26 @@ class CircleHeaderView: UIView {
         circleArea.frame = CGRect(x: circleBelong.right, y: heightFromImage, width: labelSize, height: 30)
         circleCategory.frame = CGRect(x: circleArea.right, y: heightFromImage, width: labelSize, height: 30)
         
-        circleDescription.frame = CGRect(x: 0, y: circleCategory.bottom + 8, width: self.width, height: self.height - circleImageView.height - 56)
+        let buttonWidth = self.width / 2 - 16
+        let heightFromLabel = circleBelong.bottom + 8
+        followButton.frame = CGRect(x: 8, y: heightFromLabel, width: buttonWidth, height: 30)
+        registerButton.frame = CGRect(x: followButton.right + 8, y: heightFromLabel, width: buttonWidth, height: 30)
+        followButton.layer.masksToBounds = true
+        registerButton.layer.masksToBounds = true
+        followButton.layer.cornerRadius = 8
+        registerButton.layer.cornerRadius = 8
+        followButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        registerButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         
+        circleDescription.frame = CGRect(x: 0, y: followButton.bottom + 8, width: self.width, height: self.height - circleImageView.height - 94)
+
     }
     
     public func configure(with model: Circle?) {
         circleImageView.sd_setImage(with: URL(string: "\(model?.circleProfilePhoto ?? "")"), completed: nil)
-        print(model?.name ?? "no image")
         circleArea.text = model?.name
         circleBelong.text = model?.organization
         circleCategory.text = model?.category
+        circleDescription.text = model?.descriptionField
     }
 }
