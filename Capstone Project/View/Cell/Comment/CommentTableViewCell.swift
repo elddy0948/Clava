@@ -54,5 +54,4 @@ class CommentTableViewCell: UITableViewCell {
         comment.frame = CGRect(x: userName.right + 4, y: 0,
                                width: (contentView.width - profileImage.width - userName.width - 12), height: contentView.height)
     }
-    
 }

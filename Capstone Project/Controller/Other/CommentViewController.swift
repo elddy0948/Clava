@@ -11,12 +11,17 @@ class CommentViewController: UIViewController {
     
     private let commentTextField: UITextField = {
         let textField = UITextField()
-        
+        textField.layer.masksToBounds = true
+        textField.layer.cornerRadius = 8
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.systemGray.cgColor
         return textField
     }()
     
     private let addCommentButton: UIButton = {
         let button = UIButton()
+        button.setTitle("게시", for: .normal)
+        button.setTitleColor(.link, for: .normal)
         return button
     }()
     
@@ -32,10 +37,25 @@ class CommentViewController: UIViewController {
         commentTableView.delegate = self
         commentTableView.dataSource = self
         view.addSubview(commentTableView)
+        view.addSubview(commentTextField)
+        view.addSubview(addCommentButton)
+        addCommentButton.addTarget(self, action: #selector(didTapAddCommentButton), for: .touchUpInside)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        commentTableView.frame = view.bounds
+        let viewHeight = view.height - 30
+        let commentTextfieldHeight = viewHeight / 20
+        let commentButtonWidth = view.width / 5
+        commentTableView.frame = CGRect(x: 0, y: 0, width: view.width, height: viewHeight - commentTextfieldHeight)
+
+        commentTextField.frame = CGRect(x: 4, y: commentTableView.bottom, width: view.width - commentButtonWidth, height: commentTextfieldHeight)
+        addCommentButton.frame = CGRect(x: commentTextField.right, y: commentTableView.bottom,
+                                        width: commentButtonWidth, height: commentTextfieldHeight)
+
+    }
+    
+    @objc private func didTapAddCommentButton() {
+        print(commentTextField.text ?? "")
     }
 }
 
@@ -49,7 +69,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as? CommentTableViewCell else {
             fatalError("Can't Create CommentTableViewCell")
         }
-        cell.backgroundColor = .blue
         return cell
     }
 }

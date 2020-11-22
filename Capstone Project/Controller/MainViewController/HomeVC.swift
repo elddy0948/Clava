@@ -219,6 +219,7 @@ extension HomeVC: FeedCommentTableViewCellDelegate {
     func didTapMoreComment() {
         let vc = CommentViewController()
         vc.title = "Comments"
+        vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
 }
