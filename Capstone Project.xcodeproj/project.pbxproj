@@ -28,6 +28,7 @@
 		B49308232569271D00C6A2E7 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49308222569271D00C6A2E7 /* PhotoCollectionViewCell.swift */; };
 		B4A920DF254B3A6500C429D2 /* CirclePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A920DE254B3A6500C429D2 /* CirclePostTableViewCell.swift */; };
 		B4A920E2254B3D2400C429D2 /* CircleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A920E1254B3D2400C429D2 /* CircleHeaderView.swift */; };
+		B4DABAF8256A7AD500257DB3 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DABAF7256A7AD500257DB3 /* CommentTableViewCell.swift */; };
 		B4EC06E52539CC930087F59D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC06E42539CC930087F59D /* AppDelegate.swift */; };
 		B4EC06E72539CC930087F59D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC06E62539CC930087F59D /* SceneDelegate.swift */; };
 		B4EC06EC2539CC930087F59D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4EC06EA2539CC930087F59D /* Main.storyboard */; };
@@ -35,7 +36,6 @@
 		B4EC06F12539CC940087F59D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4EC06EF2539CC940087F59D /* LaunchScreen.storyboard */; };
 		B4EC07012539D1F90087F59D /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC07002539D1F90087F59D /* HomeVC.swift */; };
 		B4EC07042539D20D0087F59D /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC07032539D20D0087F59D /* ExploreVC.swift */; };
-		B4EC07072539D21A0087F59D /* MyCircleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC07062539D21A0087F59D /* MyCircleVC.swift */; };
 		B4EC070A2539D2280087F59D /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC07092539D2280087F59D /* MyPageVC.swift */; };
 		B4EC070D2539D8860087F59D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC070C2539D8860087F59D /* User.swift */; };
 		B4EC07102539D8920087F59D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC070F2539D8920087F59D /* Post.swift */; };
@@ -70,6 +70,7 @@
 		B49308222569271D00C6A2E7 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		B4A920DE254B3A6500C429D2 /* CirclePostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePostTableViewCell.swift; sourceTree = "<group>"; };
 		B4A920E1254B3D2400C429D2 /* CircleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleHeaderView.swift; sourceTree = "<group>"; };
+		B4DABAF7256A7AD500257DB3 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		B4EC06E12539CC930087F59D /* Capstone Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Capstone Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4EC06E42539CC930087F59D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4EC06E62539CC930087F59D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,7 +80,6 @@
 		B4EC06F22539CC940087F59D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4EC07002539D1F90087F59D /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		B4EC07032539D20D0087F59D /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
-		B4EC07062539D21A0087F59D /* MyCircleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCircleVC.swift; sourceTree = "<group>"; };
 		B4EC07092539D2280087F59D /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		B4EC070C2539D8860087F59D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B4EC070F2539D8920087F59D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -123,6 +123,7 @@
 		B48AC15A25489BC800669D8E /* Comment */ = {
 			isa = PBXGroup;
 			children = (
+				B4DABAF7256A7AD500257DB3 /* CommentTableViewCell.swift */,
 			);
 			path = Comment;
 			sourceTree = "<group>";
@@ -217,7 +218,6 @@
 			children = (
 				B4EC07002539D1F90087F59D /* HomeVC.swift */,
 				B4EC07032539D20D0087F59D /* ExploreVC.swift */,
-				B4EC07062539D21A0087F59D /* MyCircleVC.swift */,
 				B4EC07092539D2280087F59D /* MyPageVC.swift */,
 			);
 			path = MainViewController;
@@ -377,8 +377,8 @@
 				B46F13CF256189F500C397BB /* ExploreTableViewCell.swift in Sources */,
 				B49308232569271D00C6A2E7 /* PhotoCollectionViewCell.swift in Sources */,
 				B48AC16525489C7B00669D8E /* CircleViewController.swift in Sources */,
+				B4DABAF8256A7AD500257DB3 /* CommentTableViewCell.swift in Sources */,
 				B4315F6B253C313600858073 /* FeedPostTableViewCell.swift in Sources */,
-				B4EC07072539D21A0087F59D /* MyCircleVC.swift in Sources */,
 				B48AC16225489C5C00669D8E /* CommentViewController.swift in Sources */,
 				B4EC07282539E4700087F59D /* Extension.swift in Sources */,
 				B4315F6A253C313600858073 /* FeedActionTableViewCell.swift in Sources */,

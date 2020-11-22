@@ -105,7 +105,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedHeaderTableViewCell else {
                 fatalError("FeedHeaderTableViewCell")
             }
-            cell.configure(circle: circleModel, post: circleModel?.circlePosts[indexPath.row])
+            cell.configure(circle: circleModel, post: circleModel?.circlePosts[indexPath.section / 5])
             cell.selectionStyle = .none
             return cell
         }
@@ -114,6 +114,8 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
             }
+            let post = circleModel?.circlePosts[indexPath.section / 5]
+            cell.configure(model: post!)
             cell.selectionStyle = .none
             return cell
         }
@@ -130,7 +132,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
             }
-            cell.configure(with: circleModel?.circlePosts[indexPath.row])
+            cell.configure(with: circleModel?.circlePosts[indexPath.section / 5])
             cell.selectionStyle = .none
             return cell
         }

@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol FeedCommentTableViewCellDelegate: AnyObject {
+    func didTapMoreComment()
+}
+
 class FeedCommentTableViewCell: UITableViewCell {
     static let reuseIdentifier = "FeedCommentTableViewCell"
+    weak var delegate: FeedCommentTableViewCellDelegate?
     
     private let userName: UILabel = {
         let label = UILabel()
@@ -47,6 +52,10 @@ class FeedCommentTableViewCell: UITableViewCell {
         contentView.clipsToBounds = false
         contentView.layer.cornerRadius = 15
         contentView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        moreCommentButton.addTarget(self, action: #selector(didTapMoreComment), for: .touchUpInside)
+    }
+    @objc private func didTapMoreComment() {
+        delegate?.didTapMoreComment()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

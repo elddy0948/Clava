@@ -31,7 +31,8 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        circlesForFeed = [Circle]()
+        postsForFeed = [Post]()
         let userEmail = UserDefaults.standard.string(forKey: "email")
         let userPassword = UserDefaults.standard.string(forKey: "password")
         
@@ -171,6 +172,7 @@ extension HomeVC: UITableViewDataSource {
                 fatalError("FeedCommentTableViewCell Error")
             }
             cell.configure(with: postsForFeed[indexPath.section / 4])
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -209,6 +211,14 @@ extension HomeVC: FeedHeaderTableViewCellDelegate {
     func pressProfileName(goto circle: Circle?) {
         let vc = CircleViewController()
         vc.configure(with: (circle?.id)!)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension HomeVC: FeedCommentTableViewCellDelegate {
+    func didTapMoreComment() {
+        let vc = CommentViewController()
+        vc.title = "Comments"
         navigationController?.pushViewController(vc, animated: true)
     }
 }

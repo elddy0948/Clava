@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uHz-Zg-0iL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uHz-Zg-0iL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,22 +40,6 @@
             </objects>
             <point key="canvasLocation" x="164" y="1420"/>
         </scene>
-        <!--My CircleVC-->
-        <scene sceneID="pXH-ty-ca5">
-            <objects>
-                <viewController id="b4n-hc-MZv" customClass="MyCircleVC" customModule="Capstone_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QY7-N5-2pd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="hSg-QI-skC"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="kLs-VU-O2B"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rYZ-TD-GDw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1322" y="1420"/>
-        </scene>
         <!--My PageVC-->
         <scene sceneID="1c0-jO-sfo">
             <objects>
@@ -85,7 +69,6 @@
                     <connections>
                         <segue destination="xjO-yT-adc" kind="relationship" relationship="viewControllers" id="7ee-z8-yof"/>
                         <segue destination="V5r-7u-ZDY" kind="relationship" relationship="viewControllers" id="S3H-T2-cW8"/>
-                        <segue destination="uJ5-ld-bQo" kind="relationship" relationship="viewControllers" id="iaB-ps-D2K"/>
                         <segue destination="aqV-zQ-aAl" kind="relationship" relationship="viewControllers" id="Rph-YH-5Pa"/>
                     </connections>
                 </tabBarController>
@@ -132,25 +115,6 @@
             <point key="canvasLocation" x="163.768115942029" y="679.6875"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="EDU-lG-Ls8">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uJ5-ld-bQo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="star" catalog="system" selectedImage="star" id="Yma-ch-iUU"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nhH-0F-Abo">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="b4n-hc-MZv" kind="relationship" relationship="rootViewController" id="gam-us-Xkm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3aO-rX-HII" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1321.7391304347827" y="669.64285714285711"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="fLU-cS-BRW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aqV-zQ-aAl" sceneMemberID="viewController">
@@ -174,7 +138,6 @@
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person" catalog="system" width="128" height="117"/>
-        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
