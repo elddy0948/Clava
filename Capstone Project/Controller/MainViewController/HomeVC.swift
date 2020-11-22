@@ -163,6 +163,7 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedActionTableViewCell else {
                 fatalError("FeedActionTableViewCell")
             }
+            
             cell.selectionStyle = .none
             return cell
         }
@@ -216,9 +217,10 @@ extension HomeVC: FeedHeaderTableViewCellDelegate {
 }
 
 extension HomeVC: FeedCommentTableViewCellDelegate {
-    func didTapMoreComment() {
+    func didTapMoreComment(comments: [Comment]) {
         let vc = CommentViewController()
         vc.title = "Comments"
+        vc.configure(comments: comments)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -9,6 +9,8 @@ import UIKit
 
 class CommentViewController: UIViewController {
     
+    private var comments = [Comment]()
+    
     private let commentTextField: UITextField = {
         let textField = UITextField()
         textField.layer.masksToBounds = true
@@ -27,6 +29,7 @@ class CommentViewController: UIViewController {
     
     private let commentTableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.reuseIdentifier)
         return tableView
     }()
@@ -57,11 +60,15 @@ class CommentViewController: UIViewController {
     @objc private func didTapAddCommentButton() {
         print(commentTextField.text ?? "")
     }
+    
+    public func configure(comments: [Comment]) {
+        self.comments = comments
+    }
 }
 
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,6 +76,11 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
                                                        for: indexPath) as? CommentTableViewCell else {
             fatalError("Can't Create CommentTableViewCell")
         }
+        cell.configure(with: comments[indexPath.row])
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let descriptionCount = comments[indexPath.row].descriptionField.count
+        return CGFloat(descriptionCount)
     }
 }

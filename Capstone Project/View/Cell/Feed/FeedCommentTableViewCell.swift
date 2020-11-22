@@ -8,12 +8,13 @@
 import UIKit
 
 protocol FeedCommentTableViewCellDelegate: AnyObject {
-    func didTapMoreComment()
+    func didTapMoreComment(comments: [Comment])
 }
 
 class FeedCommentTableViewCell: UITableViewCell {
     static let reuseIdentifier = "FeedCommentTableViewCell"
     weak var delegate: FeedCommentTableViewCellDelegate?
+    private var post: Post?
     
     private let userName: UILabel = {
         let label = UILabel()
@@ -55,7 +56,8 @@ class FeedCommentTableViewCell: UITableViewCell {
         moreCommentButton.addTarget(self, action: #selector(didTapMoreComment), for: .touchUpInside)
     }
     @objc private func didTapMoreComment() {
-        delegate?.didTapMoreComment()
+        let comments = post?.postComment ?? [Comment]()
+        delegate?.didTapMoreComment(comments: comments)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -74,6 +76,7 @@ class FeedCommentTableViewCell: UITableViewCell {
         moreCommentButton.frame = CGRect(x: 0, y: contentView.height - 24, width: contentView.width, height: comments.height)
     }
     public func configure(with model: Post?) {
+        self.post = model
         self.userName.text = model?.author
         self.comments.text = model?.descriptionField
     }
