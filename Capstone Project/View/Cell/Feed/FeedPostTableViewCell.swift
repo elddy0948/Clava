@@ -41,7 +41,6 @@ class FeedPostTableViewCell: UITableViewCell {
         guard let collectionView = imageCollectionView else {
             return
         }
-        collectionView.backgroundColor = .yellow
         contentView.addSubview(collectionView)
     }
     required init?(coder: NSCoder) {

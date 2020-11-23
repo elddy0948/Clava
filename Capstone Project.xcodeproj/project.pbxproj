@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B41460FD256B598D00D2E1CE /* TLPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = B41460FC256B598D00D2E1CE /* TLPhotoPicker */; };
 		B41B98A225585598007F7EE7 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41B98A125585598007F7EE7 /* SignupView.swift */; };
 		B427C2B3255BC56200DB8C29 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B427C2B2255BC56200DB8C29 /* SettingsViewController.swift */; };
 		B4315F6A253C313600858073 /* FeedActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4315F66253C313600858073 /* FeedActionTableViewCell.swift */; };
@@ -95,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4EC8D002567EED5008EBE07 /* SDWebImage in Frameworks */,
+				B41460FD256B598D00D2E1CE /* TLPhotoPicker in Frameworks */,
 				B4FFD28A254E9BAD00C27E8E /* SwiftyJSON in Frameworks */,
 				B4FFD286254E9B3500C27E8E /* Alamofire in Frameworks */,
 			);
@@ -295,6 +297,7 @@
 				B4FFD285254E9B3500C27E8E /* Alamofire */,
 				B4FFD289254E9BAD00C27E8E /* SwiftyJSON */,
 				B4EC8CFF2567EED5008EBE07 /* SDWebImage */,
+				B41460FC256B598D00D2E1CE /* TLPhotoPicker */,
 			);
 			productName = "Capstone Project";
 			productReference = B4EC06E12539CC930087F59D /* Capstone Project.app */;
@@ -327,6 +330,7 @@
 				B4FFD284254E9B3500C27E8E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B4FFD288254E9BAD00C27E8E /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				B4EC8CFE2567EED5008EBE07 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				B41460FB256B598D00D2E1CE /* XCRemoteSwiftPackageReference "TLPhotoPicker" */,
 			);
 			productRefGroup = B4EC06E22539CC930087F59D /* Products */;
 			projectDirPath = "";
@@ -589,6 +593,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B41460FB256B598D00D2E1CE /* XCRemoteSwiftPackageReference "TLPhotoPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tilltue/TLPhotoPicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.3;
+			};
+		};
 		B4EC8CFE2567EED5008EBE07 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -616,6 +628,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B41460FC256B598D00D2E1CE /* TLPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B41460FB256B598D00D2E1CE /* XCRemoteSwiftPackageReference "TLPhotoPicker" */;
+			productName = TLPhotoPicker;
+		};
 		B4EC8CFF2567EED5008EBE07 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B4EC8CFE2567EED5008EBE07 /* XCRemoteSwiftPackageReference "SDWebImage" */;

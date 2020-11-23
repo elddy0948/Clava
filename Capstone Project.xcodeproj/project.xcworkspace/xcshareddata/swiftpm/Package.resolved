@@ -27,6 +27,15 @@
           "revision": "2b6054efa051565954e1d2b9da831680026cd768",
           "version": "5.0.0"
         }
+      },
+      {
+        "package": "TLPhotoPicker",
+        "repositoryURL": "https://github.com/tilltue/TLPhotoPicker.git",
+        "state": {
+          "branch": null,
+          "revision": "f8714a826077661171148ce1c8075f47fa1e6283",
+          "version": "2.1.3"
+        }
       }
     ]
   },

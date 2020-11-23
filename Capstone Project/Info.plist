@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Library Usage</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera Usage</string>
+	<string>Photo Library Usage</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

@@ -81,7 +81,10 @@ class CircleViewController: UIViewController {
                    }
     }
     @objc private func didTapAddButton() {
-        print("didTapAddButton")
+        let vc = PostingViewController()
+        vc.title = "Posting"
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
