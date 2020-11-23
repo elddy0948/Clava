@@ -101,6 +101,7 @@ class HomeVC: UIViewController {
                                 self.postsForFeed.append(post)
                             }
                         }
+                        self.postsForFeed.reverse()
                         self.feedTableView.reloadData()
                     }
                    }

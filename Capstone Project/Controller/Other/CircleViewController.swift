@@ -24,6 +24,7 @@ import SwiftyJSON
 
 class CircleViewController: UIViewController {
     private var circleModel: Circle?
+    private var circlePosts = [Post]()
     private let circleHeaderView = CircleHeaderView()
     private var circleID: Int = 0
     
@@ -76,6 +77,8 @@ class CircleViewController: UIViewController {
                         let json = JSON(data)
                         self.circleModel = Circle(fromJson: json)
                         self.circleHeaderView.configure(with: self.circleModel)
+                        self.circlePosts = self.circleModel?.circlePosts ?? [Post]()
+                        self.circlePosts.reverse()
                         self.tableView.reloadData()
                     }
                    }
@@ -84,6 +87,7 @@ class CircleViewController: UIViewController {
         let vc = PostingViewController()
         vc.title = "Posting"
         vc.hidesBottomBarWhenPushed = true
+        vc.configure(with: self.circleID)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
