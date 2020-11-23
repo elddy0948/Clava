@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+
 class HomeVC: UIViewController {
     private var user: User?
     private var circlesForFeed = [Circle]()
@@ -91,6 +92,7 @@ class HomeVC: UIViewController {
                     case .failure(let error):
                         print(error)
                     case .success(let data):
+                        print(data)
                         let userJSON = JSON(data)
                         self.user = User(fromJson: userJSON)
                         self.circlesForFeed = (self.user?.followCircle ?? [Circle]()) + (self.user?.myCircle ?? [Circle]())
@@ -217,10 +219,10 @@ extension HomeVC: FeedHeaderTableViewCellDelegate {
 }
 
 extension HomeVC: FeedCommentTableViewCellDelegate {
-    func didTapMoreComment(comments: [Comment]) {
+    func didTapMoreComment(comments: [Comment], post: Post?) {
         let vc = CommentViewController()
         vc.title = "Comments"
-        vc.configure(comments: comments)
+        vc.configure(comments: comments, post: post)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }

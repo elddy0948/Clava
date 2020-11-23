@@ -141,6 +141,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                 fatalError("FeedCommentTableViewCell Error")
             }
             cell.configure(with: circleModel?.circlePosts[indexPath.section / 5])
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -183,5 +184,15 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
             return view.width
         }
         return 0
+    }
+}
+
+extension CircleViewController: FeedCommentTableViewCellDelegate {
+    func didTapMoreComment(comments: [Comment], post: Post?) {
+        let vc = CommentViewController()
+        vc.title = "Comments"
+        vc.configure(comments: comments, post: post)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

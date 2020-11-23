@@ -26,6 +26,7 @@ class CommentTableViewCell: UITableViewCell {
         let textView = UITextView()
         textView.textColor = .label
         textView.isEditable = false
+        textView.font = .systemFont(ofSize: 15)
         return textView
     }()
     
@@ -43,13 +44,13 @@ class CommentTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         //Profile Image
-        profileImage.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        profileImage.frame = CGRect(x: 0, y: 2, width: 30, height: 30)
         profileImage.layer.masksToBounds = true
         profileImage.clipsToBounds = true
-        profileImage.layer.cornerRadius = 50 / 2
+        profileImage.layer.cornerRadius = 30 / 2
         
         //User Name
-        userName.frame = CGRect(x: profileImage.right + 4, y: 0, width: 100, height: 50)
+        userName.frame = CGRect(x: profileImage.right + 4, y: 2, width: 100, height: 30)
         
         //Comment
         comment.frame = CGRect(x: userName.right + 4, y: 0,
@@ -58,6 +59,5 @@ class CommentTableViewCell: UITableViewCell {
     public func configure(with comment: Comment) {
         userName.text = comment.author
         self.comment.text = comment.descriptionField
-        print(comment.descriptionField.count)
     }
 }

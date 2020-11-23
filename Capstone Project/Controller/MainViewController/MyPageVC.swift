@@ -15,10 +15,7 @@ class MyPageVC: UIViewController {
     private var user: User?
     
     // View For User Information
-    private let uiView: UIView = {
-        let view = UserInfoView()
-        return view
-    }()
+    private let uiView = UserInfoView()
     
     
     private let tableView: UITableView = {
@@ -79,6 +76,7 @@ class MyPageVC: UIViewController {
                     case .success(let data):
                         let userJSON = JSON(data)
                         self.user = User(fromJson: userJSON)
+                        self.uiView.configure(with: self.user)
                         self.tableView.reloadData()
                     }
                    }

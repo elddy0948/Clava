@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FeedCommentTableViewCellDelegate: AnyObject {
-    func didTapMoreComment(comments: [Comment])
+    func didTapMoreComment(comments: [Comment], post: Post?)
 }
 
 class FeedCommentTableViewCell: UITableViewCell {
@@ -57,7 +57,7 @@ class FeedCommentTableViewCell: UITableViewCell {
     }
     @objc private func didTapMoreComment() {
         let comments = post?.postComment ?? [Comment]()
-        delegate?.didTapMoreComment(comments: comments)
+        delegate?.didTapMoreComment(comments: comments, post: post)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

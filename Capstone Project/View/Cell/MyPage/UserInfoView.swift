@@ -17,7 +17,6 @@ class UserInfoView: UIView {
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Hojoon"
         label.numberOfLines = 1
         label.textColor = .label
         label.textAlignment = .center
@@ -26,7 +25,6 @@ class UserInfoView: UIView {
     
     private let userNickNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "@Holuck"
         label.numberOfLines = 1
         label.textAlignment = .center
         label.textColor = .label
@@ -54,6 +52,11 @@ class UserInfoView: UIView {
                                      width: self.width, height: 30)
         userNickNameLabel.frame = CGRect(x: 0, y: userNameLabel.bottom,
                                          width: self.width, height: 30)
+    }
+    
+    public func configure(with user: User?) {
+        userNameLabel.text = user?.name
+        userNickNameLabel.text = "@\(user?.nickname ?? "")"
     }
     
 }

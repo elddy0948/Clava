@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class CommentViewController: UIViewController {
     
     private var comments = [Comment]()
+    private var post: Post?
     
     private let commentTextField: UITextField = {
         let textField = UITextField()
@@ -17,6 +20,8 @@ class CommentViewController: UIViewController {
         textField.layer.cornerRadius = 8
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.systemGray.cgColor
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -58,11 +63,33 @@ class CommentViewController: UIViewController {
     }
     
     @objc private func didTapAddCommentButton() {
-        print(commentTextField.text ?? "")
+        let commentURL = "http://3.35.240.252:8080/posts/\(post?.id ?? 0)/comment"
+        let parameters: Parameters = [
+            "description": "\(commentTextField.text ?? "")"
+        ]
+        guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get user Token")
+        }
+        AF.request(commentURL, method: .post, parameters: parameters, encoding: JSONEncoding.default,
+                   headers: [
+                    "Authorization" : "Bearer \(userToken)"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        let json = JSON(data)
+                        self.comments.append(Comment(fromJson: json))
+                        self.commentTableView.reloadData()
+                    }
+                   }
+        commentTextField.text = ""
+        commentTableView.reloadData()
     }
     
-    public func configure(comments: [Comment]) {
+    public func configure(comments: [Comment], post: Post?) {
         self.comments = comments
+        self.post = post
     }
 }
 
@@ -82,6 +109,9 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let descriptionCount = comments[indexPath.row].descriptionField.count
-        return CGFloat(descriptionCount)
+        if descriptionCount > 100 {
+            return CGFloat(descriptionCount * 2)
+        }
+        return 40
     }
 }
