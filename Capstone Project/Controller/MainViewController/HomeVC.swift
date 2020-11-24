@@ -29,7 +29,6 @@ class HomeVC: UIViewController {
     }()
     
     //MARK: - LifeCycle
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         circlesForFeed = [Circle]()
@@ -92,7 +91,6 @@ class HomeVC: UIViewController {
                     case .failure(let error):
                         print(error)
                     case .success(let data):
-                        print(data)
                         let userJSON = JSON(data)
                         self.user = User(fromJson: userJSON)
                         self.circlesForFeed = (self.user?.followCircle ?? [Circle]()) + (self.user?.myCircle ?? [Circle]())
@@ -144,10 +142,12 @@ extension HomeVC: UITableViewDataSource {
                 fatalError("FeedHeaderTableViewCell")
             }
             cell.delegate = self
-            let post: Post? = postsForFeed[indexPath.section / 4]
-            for circle in circlesForFeed {
-                if circle.id == postsForFeed[indexPath.section / 4].circleId {
-                    cell.configure(circle: circle, post: post)
+            if postsForFeed.count >= (indexPath.section / 4) {
+                let post: Post? = postsForFeed[indexPath.section / 4]
+                for circle in circlesForFeed {
+                    if circle.id == postsForFeed[indexPath.section / 4].circleId {
+                        cell.configure(circle: circle, post: post)
+                    }
                 }
             }
             cell.selectionStyle = .none
@@ -213,10 +213,41 @@ extension HomeVC: UITableViewDataSource {
 
 
 extension HomeVC: FeedHeaderTableViewCellDelegate {
+    func pressMoreButton(with post: Post?) {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "삭제하기", style: .default, handler: { (alert) in
+            self.deleteFeed(post: post?.id)
+            self.feedTableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     func pressProfileName(goto circle: Circle?) {
         let vc = CircleViewController()
         vc.configure(with: (circle?.id)!)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    private func deleteFeed(post: Int?) {
+        let deleteURL = "http://3.35.240.252:8080/delete/post"
+        guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get accessToken")
+        }
+        let parameters: Parameters = [
+            "deleteId": "\(post ?? 0)"
+        ]
+        AF.request(deleteURL, method: .delete,
+                   parameters: parameters,
+                   encoding: JSONEncoding.default, headers: [
+                    "Authorization" : "Bearer \(accessToken)"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(_):
+                        self.feedTableView.reloadData()
+                    }
+                   }
     }
 }
 

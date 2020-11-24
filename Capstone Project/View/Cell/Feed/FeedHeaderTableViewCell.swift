@@ -16,12 +16,14 @@ import SDWebImage
 
 protocol FeedHeaderTableViewCellDelegate: AnyObject {
     func pressProfileName(goto circle: Circle?)
+    func pressMoreButton(with post: Post?)
 }
 
 class FeedHeaderTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = "FeedHeaderTableViewCell"
     private var circle: Circle?
+    private var post: Post?
         
     weak var delegate: FeedHeaderTableViewCellDelegate?
     
@@ -64,6 +66,7 @@ class FeedHeaderTableViewCell: UITableViewCell {
         
         //MARK: - Add Target
         profileName.addTarget(self, action: #selector(pressProfileName), for: .touchUpInside)
+        moreButton.addTarget(self, action: #selector(pressMoreButton), for: .touchUpInside)
         
     }
     required init?(coder: NSCoder) {
@@ -95,6 +98,7 @@ class FeedHeaderTableViewCell: UITableViewCell {
     //MARK: - public
     public func configure(circle: Circle?, post: Post?) {
         self.circle = circle
+        self.post = post
         guard let circlePhoto = self.circle?.circleProfilePhoto else {
             fatalError("Can't get Profile Photo")
         }
@@ -106,5 +110,8 @@ class FeedHeaderTableViewCell: UITableViewCell {
     //MARK: - Actions
     @objc private func pressProfileName() {
         delegate?.pressProfileName(goto: self.circle)
+    }
+    @objc private func pressMoreButton() {
+        delegate?.pressMoreButton(with: self.post)
     }
 }

@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class UserInfoView: UIView {
 
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.tintColor = .label
         return imageView
     }()
     
@@ -57,6 +58,11 @@ class UserInfoView: UIView {
     public func configure(with user: User?) {
         userNameLabel.text = user?.name
         userNickNameLabel.text = "@\(user?.nickname ?? "")"
+        if user?.profilePhoto == "" {
+            profileImageView.image = UIImage(systemName: "person.circle")
+        } else {
+            profileImageView.sd_setImage(with: URL(string: user?.profilePhoto ?? ""), completed: nil)
+        }
     }
     
 }

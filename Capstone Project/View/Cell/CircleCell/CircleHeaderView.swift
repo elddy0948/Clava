@@ -11,6 +11,7 @@ import SDWebImage
 protocol CircleHeaderViewDelegate: AnyObject {
     func didTapFollowButton()
     func didTapRegisterButton()
+    func didTapsignOutCircleButton()
 }
 
 class CircleHeaderView: UIView {
@@ -80,9 +81,20 @@ class CircleHeaderView: UIView {
         return button
     }()
     
+    private let signOutCircleButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("탈퇴하기", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = .link
+        button.addTarget(self, action: #selector(didTapsignOutCircleButton), for: .touchUpInside)
+        return button
+    }()
+    
     private let circleDescription: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .systemBackground
+        textView.isEditable = false
+        textView.font = .systemFont(ofSize: 17)
         textView.text = "설명이 없어요 ㅠ..ㅠ"
         return textView
     }()
@@ -97,6 +109,8 @@ class CircleHeaderView: UIView {
         self.addSubview(circleDescription)
         self.addSubview(followButton)
         self.addSubview(registerButton)
+        self.addSubview(signOutCircleButton)
+        signOutCircleButton.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -111,14 +125,15 @@ class CircleHeaderView: UIView {
         
         let labelSize = self.width / 3
         let heightFromImage = circleImageView.bottom + 8
-        circleBelong.frame = CGRect(x: 0, y: heightFromImage, width: labelSize, height: 30)
-        circleArea.frame = CGRect(x: circleBelong.right, y: heightFromImage, width: labelSize, height: 30)
-        circleCategory.frame = CGRect(x: circleArea.right, y: heightFromImage, width: labelSize, height: 30)
+        let subviewsHeight: CGFloat = 30
+        circleBelong.frame = CGRect(x: 0, y: heightFromImage, width: labelSize, height: subviewsHeight)
+        circleArea.frame = CGRect(x: circleBelong.right, y: heightFromImage, width: labelSize, height: subviewsHeight)
+        circleCategory.frame = CGRect(x: circleArea.right, y: heightFromImage, width: labelSize, height: subviewsHeight)
         
         let buttonWidth = self.width / 2 - 16
         let heightFromLabel = circleBelong.bottom + 8
-        followButton.frame = CGRect(x: 8, y: heightFromLabel, width: buttonWidth, height: 30)
-        registerButton.frame = CGRect(x: followButton.right + 8, y: heightFromLabel, width: buttonWidth, height: 30)
+        followButton.frame = CGRect(x: 8, y: heightFromLabel, width: buttonWidth, height: subviewsHeight)
+        registerButton.frame = CGRect(x: followButton.right + 8, y: heightFromLabel, width: buttonWidth, height: subviewsHeight)
         followButton.layer.masksToBounds = true
         registerButton.layer.masksToBounds = true
         followButton.layer.cornerRadius = 8
@@ -126,23 +141,26 @@ class CircleHeaderView: UIView {
         followButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         registerButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         
-        circleDescription.frame = CGRect(x: 0, y: followButton.bottom + 8, width: self.width, height: self.height - circleImageView.height - 94)
-
+        signOutCircleButton.frame = CGRect(x: 8, y: heightFromLabel, width: (buttonWidth) * 2, height: subviewsHeight)
+        signOutCircleButton.layer.masksToBounds = true
+        signOutCircleButton.layer.cornerRadius = 8
+        signOutCircleButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        
+        circleDescription.frame = CGRect(x: 0, y: followButton.bottom + 8,
+                                         width: self.width, height: self.height - circleImageView.height - 96)
     }
     
     public func configure(with model: Circle?) {
         circleImageView.sd_setImage(with: URL(string: "\(model?.circleProfilePhoto ?? "")"), completed: nil)
-        circleArea.text = model?.name
+        circleArea.text = model?.place
         circleBelong.text = model?.organization
         circleCategory.text = model?.category
         circleDescription.text = model?.descriptionField
     }
-    public func dismissFollowButton() {
-        self.followButton.isHidden = true
-    }
-    public func dismissRegisterButton() {
-        self.followButton.isHidden = true
-        self.registerButton.isHidden = true
+    public func buttonHidden(followButton: Bool, registerButton: Bool, signOutButton: Bool) {
+        self.followButton.isHidden = followButton
+        self.registerButton.isHidden = registerButton
+        self.signOutCircleButton.isHidden = signOutButton
     }
     
     //MARK: - Button Actions
@@ -152,5 +170,9 @@ class CircleHeaderView: UIView {
     
     @objc private func didTapRegisterButton() {
         delegate?.didTapRegisterButton()
+    }
+    
+    @objc private func didTapsignOutCircleButton() {
+        delegate?.didTapsignOutCircleButton()
     }
 }

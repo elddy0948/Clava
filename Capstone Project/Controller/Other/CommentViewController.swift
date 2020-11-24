@@ -42,6 +42,10 @@ class CommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
         commentTableView.delegate = self
         commentTableView.dataSource = self
         view.addSubview(commentTableView)
@@ -87,6 +91,20 @@ class CommentViewController: UIViewController {
         commentTableView.reloadData()
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
     public func configure(comments: [Comment], post: Post?) {
         self.comments = comments
         self.post = post
@@ -113,5 +131,46 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
             return CGFloat(descriptionCount * 2)
         }
         return 40
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard let userNickname = UserDefaults.standard.string(forKey: "userNickname") else {
+            fatalError("Can't get userNickname")
+        }
+        if userNickname == comments[indexPath.row].author {
+            //can edit
+            return true
+        }
+        return false
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            
+            let requestURL = "http://3.35.240.252:8080/delete/comment"
+            guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
+                fatalError("Can't get user Token")
+            }
+            guard let commentId = comments[indexPath.row].id else {
+                fatalError("Can't get comment id")
+            }
+            let parameters: Parameters = [
+                "deleteId": commentId
+            ]
+            
+            AF.request(requestURL, method: .delete, parameters: parameters, encoding: JSONEncoding.default, headers: [
+                "Authorization" : "Bearer \(userToken)"
+            ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                switch response.result {
+                case .failure(let error):
+                    print(error)
+                case .success(let data):
+                    print(data)
+                }
+            }
+            self.comments.remove(at: indexPath.row)
+            self.commentTableView.beginUpdates()
+            self.commentTableView.deleteRows(at: [indexPath], with: .automatic)
+            self.commentTableView.endUpdates()
+        }
     }
 }

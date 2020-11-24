@@ -22,7 +22,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.clipsToBounds = true
         contentView.addSubview(imageView)
-        contentView.backgroundColor = .red
+        contentView.backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {

@@ -35,7 +35,7 @@ class MyPageVC: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"),
                                                             style: .plain, target: self, action: #selector(didTapSettingButton))
-        
+        tableView.separatorStyle = .none
         view.addSubview(tableView)
         view.addSubview(uiView)
     }

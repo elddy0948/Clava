@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ExploreTableViewCell: UITableViewCell {
     
@@ -13,7 +14,7 @@ class ExploreTableViewCell: UITableViewCell {
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .secondarySystemBackground
         return imageView
     }()
     
@@ -44,6 +45,6 @@ class ExploreTableViewCell: UITableViewCell {
     
     public func configure(with model: Circle) {
         circleLabel.text = model.name
-        print(model.circleProfilePhoto ?? "Can't get URL")
+        profileImageView.sd_setImage(with: URL(string: model.circleProfilePhoto), completed: nil)
     }
 }

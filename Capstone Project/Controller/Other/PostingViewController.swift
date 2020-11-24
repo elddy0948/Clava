@@ -53,6 +53,10 @@ class PostingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: view.width, height: view.width)
@@ -86,6 +90,20 @@ class PostingViewController: UIViewController {
         let buttonXPosition = (view.width / 3) - (buttonWidth / 2)
         libraryButton.frame = CGRect(x: buttonXPosition, y: descriptionField.bottom + 12 , width: buttonWidth, height: 60)
         postingButton.frame = CGRect(x: libraryButton.right + buttonWidth, y: descriptionField.bottom + 4, width: buttonWidth, height: 60)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
     @objc private func selectImageFromLibrary() {

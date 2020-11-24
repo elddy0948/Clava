@@ -73,7 +73,7 @@ extension FeedPostTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoCollectionViewCell else {
             fatalError("Can't create PhotoCollectionViewCell")
         }
-        cell.backgroundColor = .red
+        cell.backgroundColor = .systemBackground
         cell.configure(with: photo[indexPath.row])
         return cell
     }

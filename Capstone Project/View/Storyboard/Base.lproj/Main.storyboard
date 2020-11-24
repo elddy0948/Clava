@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -65,6 +66,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="83"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" systemColor="systemBackgroundColor"/>
+                        <color key="selectedImageTintColor" systemColor="labelColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="xjO-yT-adc" kind="relationship" relationship="viewControllers" id="7ee-z8-yof"/>
@@ -80,7 +83,10 @@
         <scene sceneID="dfw-88-YgW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xjO-yT-adc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="house" catalog="system" selectedImage="house" id="mkF-aa-9Ql"/>
+                    <tabBarItem key="tabBarItem" title="" selectedImage="house" catalog="system" id="mkF-aa-9Ql">
+                        <imageReference key="image" image="house" catalog="system" symbolScale="default"/>
+                        <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mls-ON-Gnk">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -99,7 +105,10 @@
         <scene sceneID="VMN-Z4-7CS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V5r-7u-ZDY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="We8-Ua-jj9"/>
+                    <tabBarItem key="tabBarItem" title="" selectedImage="magnifyingglass" catalog="system" id="We8-Ua-jj9">
+                        <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="default"/>
+                        <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ba3-R8-mdM">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -118,7 +127,9 @@
         <scene sceneID="fLU-cS-BRW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aqV-zQ-aAl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" id="3tm-ec-LbE"/>
+                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" id="3tm-ec-LbE">
+                        <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iud-ak-bbp">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -138,6 +149,9 @@
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
