@@ -36,6 +36,7 @@ class ExploreVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getAllCircles()
+        tableView.separatorStyle = .none
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self

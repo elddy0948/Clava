@@ -51,6 +51,10 @@ class MyPageVC: UIViewController {
         uiView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: view.width / 1.5)
         tableView.frame = CGRect(x: 0, y: uiView.bottom, width: view.width, height: view.height / 1.5)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        getUserInfo()
+        tableView.reloadData()
+    }
     
     private func getUserInfo() {
         guard let userNickname = UserDefaults.standard.string(forKey: "userNickname") else {

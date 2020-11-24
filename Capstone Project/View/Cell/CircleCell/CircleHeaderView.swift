@@ -8,6 +8,11 @@
 import UIKit
 import SDWebImage
 
+protocol CircleHeaderViewDelegate: AnyObject {
+    func didTapFollowButton()
+    func didTapRegisterButton()
+}
+
 class CircleHeaderView: UIView {
     
     /*
@@ -19,6 +24,7 @@ class CircleHeaderView: UIView {
      */
     
     public var circleModel: Circle?
+    weak var delegate: CircleHeaderViewDelegate?
     
     private let circleImageView: UIImageView = {
         let imageView = UIImageView()
@@ -61,6 +67,7 @@ class CircleHeaderView: UIView {
         button.setTitle("팔로우하기", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .link
+        button.addTarget(self, action: #selector(didTapFollowButton), for: .touchUpInside)
         return button
     }()
     
@@ -69,6 +76,7 @@ class CircleHeaderView: UIView {
         button.setTitle("가입하기", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .link
+        button.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
         return button
     }()
     
@@ -128,5 +136,21 @@ class CircleHeaderView: UIView {
         circleBelong.text = model?.organization
         circleCategory.text = model?.category
         circleDescription.text = model?.descriptionField
+    }
+    public func dismissFollowButton() {
+        self.followButton.isHidden = true
+    }
+    public func dismissRegisterButton() {
+        self.followButton.isHidden = true
+        self.registerButton.isHidden = true
+    }
+    
+    //MARK: - Button Actions
+    @objc private func didTapFollowButton() {
+        delegate?.didTapFollowButton()
+    }
+    
+    @objc private func didTapRegisterButton() {
+        delegate?.didTapRegisterButton()
     }
 }

@@ -95,16 +95,18 @@ class PostingViewController: UIViewController {
     }
     @objc private func selectPostingButton() {
         let requestURL = "http://3.35.240.252:8080/upload"
-        var counter = 0
         guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
             fatalError("Can't get accessToken")
         }
         for image in uiimageArr {
-            guard let data = image.jpegData(compressionQuality: 0.5) else {
+            guard let data = image.pngData() else {
                 fatalError("Can't Create pngData")
             }
+//            guard let data = image.jpegData(compressionQuality: 0.5) else {
+//                fatalError("")
+//            }
             AF.upload(multipartFormData: { multipartFormData in
-                multipartFormData.append(data, withName: "data",fileName: "file.jpeg", mimeType: "image/jpeg")
+                multipartFormData.append(data, withName: "data",fileName: "file2.png", mimeType: "image/png")
             },
             to: requestURL, method: .post, headers: [
                 "Authorization" : "Bearer \(accessToken)"
@@ -114,9 +116,8 @@ class PostingViewController: UIViewController {
                     print(error)
                 case .success(let data):
                     self.urlArray.append(data)
-                    counter += 1
-                    if counter == self.uiimageArr.count {
-                        print(self.circleID ?? 0)
+                    if self.urlArray.count == self.uiimageArr.count {
+                        print(self.urlArray)
                         let postingURL = "http://3.35.240.252:8080/circles/\(self.circleID ?? 0)/posts"
                         let parameter: Parameters = [
                             "description": "\(self.descriptionField.text ?? "")",
@@ -130,7 +131,8 @@ class PostingViewController: UIViewController {
                                     switch response.result {
                                     case .failure(let error):
                                         print(error)
-                                    case .success(_):
+                                    case .success(let data):
+                                        print(data)
                                         self.navigationController?.popViewController(animated: true)
                                     }
                                    }

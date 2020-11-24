@@ -30,6 +30,7 @@
 		B4A920DF254B3A6500C429D2 /* CirclePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A920DE254B3A6500C429D2 /* CirclePostTableViewCell.swift */; };
 		B4A920E2254B3D2400C429D2 /* CircleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A920E1254B3D2400C429D2 /* CircleHeaderView.swift */; };
 		B4A98799256AEA9A00F3DA77 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A98798256AEA9A00F3DA77 /* PostingViewController.swift */; };
+		B4C3176B256CEE7A00CE881E /* NothingToShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C3176A256CEE7A00CE881E /* NothingToShow.swift */; };
 		B4DABAF8256A7AD500257DB3 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DABAF7256A7AD500257DB3 /* CommentTableViewCell.swift */; };
 		B4EC06E52539CC930087F59D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC06E42539CC930087F59D /* AppDelegate.swift */; };
 		B4EC06E72539CC930087F59D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EC06E62539CC930087F59D /* SceneDelegate.swift */; };
@@ -73,6 +74,7 @@
 		B4A920DE254B3A6500C429D2 /* CirclePostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclePostTableViewCell.swift; sourceTree = "<group>"; };
 		B4A920E1254B3D2400C429D2 /* CircleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleHeaderView.swift; sourceTree = "<group>"; };
 		B4A98798256AEA9A00F3DA77 /* PostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
+		B4C3176A256CEE7A00CE881E /* NothingToShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NothingToShow.swift; sourceTree = "<group>"; };
 		B4DABAF7256A7AD500257DB3 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		B4EC06E12539CC930087F59D /* Capstone Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Capstone Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4EC06E42539CC930087F59D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		B4EC06FA2539CCD20087F59D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B4C3176A256CEE7A00CE881E /* NothingToShow.swift */,
 				B4725F1C2553068F00145B2F /* LoginView.swift */,
 				B41B98A125585598007F7EE7 /* SignupView.swift */,
 				B4EC07132539D9590087F59D /* Cell */,
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4C3176B256CEE7A00CE881E /* NothingToShow.swift in Sources */,
 				B41B98A225585598007F7EE7 /* SignupView.swift in Sources */,
 				B4A920DF254B3A6500C429D2 /* CirclePostTableViewCell.swift in Sources */,
 				B4315F6D253C313600858073 /* FeedCommentTableViewCell.swift in Sources */,

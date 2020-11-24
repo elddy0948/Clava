@@ -108,6 +108,7 @@ class HomeVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        feedTableView.separatorStyle = .none
         view.addSubview(feedTableView)
         view.backgroundColor = .systemBackground
         feedTableView.delegate = self
@@ -143,7 +144,7 @@ extension HomeVC: UITableViewDataSource {
                 fatalError("FeedHeaderTableViewCell")
             }
             cell.delegate = self
-            let post = postsForFeed[indexPath.section / 4]
+            let post: Post? = postsForFeed[indexPath.section / 4]
             for circle in circlesForFeed {
                 if circle.id == postsForFeed[indexPath.section / 4].circleId {
                     cell.configure(circle: circle, post: post)

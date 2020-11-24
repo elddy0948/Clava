@@ -47,6 +47,7 @@ class CircleViewController: UIViewController {
         configure(with: self.circleID)
         tableView.delegate = self
         tableView.dataSource = self
+        circleHeaderView.delegate = self
         view.addSubview(circleHeaderView)
         view.addSubview(tableView)
     }
@@ -55,6 +56,11 @@ class CircleViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
     public func configure(with circleID: Int) {
         //현재 로그인 한 유저가 관리자면 수정 버튼 추가
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
@@ -79,6 +85,22 @@ class CircleViewController: UIViewController {
                         self.circleHeaderView.configure(with: self.circleModel)
                         self.circlePosts = self.circleModel?.circlePosts ?? [Post]()
                         self.circlePosts.reverse()
+                        let userEmail = UserDefaults.standard.string(forKey: "email")
+                        guard let email = userEmail else {
+                            fatalError("Can't Find User email")
+                        }
+                        for member in self.circleModel?.circleMember ?? [CircleMember]() {
+                            //이미 동아리 멤버라면
+                            if member.email == email {
+                                self.circleHeaderView.dismissRegisterButton()
+                            }
+                        }
+                        for member in self.circleModel?.circleFollower ?? [User]() {
+                            //이미 팔로우 한 멤버라면
+                            if member.email == email {
+                                self.circleHeaderView.dismissFollowButton()
+                            }
+                        }
                         self.tableView.reloadData()
                     }
                    }
@@ -94,12 +116,12 @@ class CircleViewController: UIViewController {
 
 extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        let circlePostCount = circleModel?.circlePosts.count ?? 0
+        let circlePostCount = circlePosts.count
         if circlePostCount == 0 {
             return 1
         }
         else {
-            return (5 * (circleModel?.circlePosts.count ?? 0))
+            return (5 * (circlePostCount))
         }
     }
     
@@ -117,7 +139,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedHeaderTableViewCell else {
                 fatalError("FeedHeaderTableViewCell")
             }
-            cell.configure(circle: circleModel, post: circleModel?.circlePosts[indexPath.section / 5])
+            cell.configure(circle: circleModel, post: circlePosts[indexPath.section / 5])
             cell.selectionStyle = .none
             return cell
         }
@@ -126,8 +148,8 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
             }
-            let post = circleModel?.circlePosts[indexPath.section / 5]
-            cell.configure(model: post!)
+            let post = circlePosts[indexPath.section / 5]
+            cell.configure(model: post)
             cell.selectionStyle = .none
             return cell
         }
@@ -144,7 +166,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
             }
-            cell.configure(with: circleModel?.circlePosts[indexPath.section / 5])
+            cell.configure(with: circlePosts[indexPath.section / 5])
             cell.delegate = self
             cell.selectionStyle = .none
             return cell
@@ -198,5 +220,45 @@ extension CircleViewController: FeedCommentTableViewCellDelegate {
         vc.configure(comments: comments, post: post)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension CircleViewController: CircleHeaderViewDelegate {
+    func didTapFollowButton() {
+        let requestURL = "http://3.35.240.252:8080/users/follower/\(circleID)"
+        guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get user Token")
+        }
+        AF.request(requestURL, method: .post, parameters: nil,
+                   encoding: JSONEncoding.default,
+                   headers: [
+                    "Authorization" : "Bearer \(userToken)"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        print(data)
+                    }
+                   }
+    }
+    
+    func didTapRegisterButton() {
+        let requestURL = "http://3.35.240.252:8080/users/joinCircle/\(circleID)"
+        guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get user Token")
+        }
+        AF.request(requestURL, method: .post, parameters: nil,
+                   encoding: JSONEncoding.default,
+                   headers: [
+                    "Authorization" : "Bearer \(userToken)"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let data):
+                        print(data)
+                    }
+                   }
     }
 }
