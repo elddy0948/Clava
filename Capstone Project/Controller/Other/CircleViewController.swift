@@ -93,13 +93,13 @@ class CircleViewController: UIViewController {
                         for member in self.circleModel?.circleMember ?? [CircleMember]() {
                             //이미 동아리 멤버라면
                             if member.email == email {
-                                self.circleHeaderView.buttonHidden(followButton: true, registerButton: true, signOutButton: false)
+                                self.circleHeaderView.buttonHidden(followButton: true, registerButton: true, signOutButton: false, unfollowButton: true)
                             }
                         }
                         for member in self.circleModel?.circleFollower ?? [User]() {
                             //이미 팔로우 한 멤버라면
                             if member.email == email {
-                                self.circleHeaderView.buttonHidden(followButton: true, registerButton: false, signOutButton: true)
+                                self.circleHeaderView.buttonHidden(followButton: true, registerButton: false, signOutButton: true, unfollowButton: false)
                             }
                         }
                         self.tableView.reloadData()
@@ -239,7 +239,8 @@ extension CircleViewController: CircleHeaderViewDelegate {
                     case .failure(let error):
                         print(error)
                     case .success(_):
-                        self.circleHeaderView.buttonHidden(followButton: true, registerButton: false, signOutButton: true)
+                        self.circleHeaderView.buttonHidden(followButton: true, registerButton: false,
+                                                           signOutButton: true, unfollowButton: false)
                     }
                    }
     }
@@ -258,7 +259,8 @@ extension CircleViewController: CircleHeaderViewDelegate {
                     case .failure(let error):
                         print(error)
                     case .success(_):
-                        self.circleHeaderView.buttonHidden(followButton: true, registerButton: true, signOutButton: false)
+                        self.circleHeaderView.buttonHidden(followButton: true, registerButton: true,
+                                                           signOutButton: false, unfollowButton: true)
                     }
                    }
     }
@@ -280,7 +282,31 @@ extension CircleViewController: CircleHeaderViewDelegate {
                         print(error)
                     case .success(let data):
                         print(data)
-                        self.circleHeaderView.buttonHidden(followButton: false, registerButton: false, signOutButton: true)
+                        self.circleHeaderView.buttonHidden(followButton: false, registerButton: false,
+                                                           signOutButton: true, unfollowButton: true)
+                    }
+                   }
+    }
+    func didTapUnFollowButton() {
+//         "/delete/follower"
+        let requestURL = "http://3.35.240.252:8080/delete/follower"
+        guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
+            fatalError("Can't get user Token")
+        }
+        let parameter: Parameters = [
+            "deleteId": "\(circleID)"
+        ]
+        AF.request(requestURL, method: .delete, parameters: parameter,
+                   encoding: JSONEncoding.default,
+                   headers: [
+                    "Authorization" : "Bearer \(userToken)"
+                   ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                    switch response.result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(_):
+                        self.circleHeaderView.buttonHidden(followButton: false, registerButton: false,
+                                                           signOutButton: true, unfollowButton: true)
                     }
                    }
     }

@@ -10,6 +10,7 @@ import TLPhotoPicker
 import Photos
 import Alamofire
 import SwiftyJSON
+import SDWebImage
 
 class PostingViewController: UIViewController {
     // uiimagepicker
@@ -53,6 +54,7 @@ class PostingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        self.setupHideKeyboardOnTap()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
@@ -99,7 +101,7 @@ class PostingViewController: UIViewController {
             }
         }
     }
-
+    
     @objc func keyboardWillHide(notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
@@ -117,12 +119,10 @@ class PostingViewController: UIViewController {
             fatalError("Can't get accessToken")
         }
         for image in uiimageArr {
-            guard let data = image.pngData() else {
+            guard let data = image.sd_imageData() else {
                 fatalError("Can't Create pngData")
             }
-//            guard let data = image.jpegData(compressionQuality: 0.5) else {
-//                fatalError("")
-//            }
+            
             AF.upload(multipartFormData: { multipartFormData in
                 multipartFormData.append(data, withName: "data",fileName: "file2.png", mimeType: "image/png")
             },
@@ -149,8 +149,7 @@ class PostingViewController: UIViewController {
                                     switch response.result {
                                     case .failure(let error):
                                         print(error)
-                                    case .success(let data):
-                                        print(data)
+                                    case .success(_):
                                         self.navigationController?.popViewController(animated: true)
                                     }
                                    }
@@ -185,6 +184,7 @@ extension PostingViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension PostingViewController: TLPhotosPickerViewControllerDelegate {
     func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool {
         self.selectedAssets = withTLPHAssets
+        
         for asset in self.selectedAssets {
             uiimageArr.append(asset.fullResolutionImage ?? UIImage())
         }

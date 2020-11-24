@@ -12,6 +12,7 @@ protocol CircleHeaderViewDelegate: AnyObject {
     func didTapFollowButton()
     func didTapRegisterButton()
     func didTapsignOutCircleButton()
+    func didTapUnFollowButton()
 }
 
 class CircleHeaderView: UIView {
@@ -90,6 +91,15 @@ class CircleHeaderView: UIView {
         return button
     }()
     
+    private let unfollowButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("언팔로우하기", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = .link
+        button.addTarget(self, action: #selector(didTapUnFollowButton), for: .touchUpInside)
+        return button
+    }()
+    
     private let circleDescription: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .systemBackground
@@ -110,6 +120,8 @@ class CircleHeaderView: UIView {
         self.addSubview(followButton)
         self.addSubview(registerButton)
         self.addSubview(signOutCircleButton)
+        self.addSubview(unfollowButton)
+        unfollowButton.isHidden = true
         signOutCircleButton.isHidden = true
     }
     
@@ -141,6 +153,11 @@ class CircleHeaderView: UIView {
         followButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         registerButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         
+        unfollowButton.frame = CGRect(x: 8, y: heightFromLabel, width: buttonWidth, height: subviewsHeight)
+        unfollowButton.layer.masksToBounds = true
+        unfollowButton.layer.cornerRadius = 8
+        unfollowButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        
         signOutCircleButton.frame = CGRect(x: 8, y: heightFromLabel, width: (buttonWidth) * 2, height: subviewsHeight)
         signOutCircleButton.layer.masksToBounds = true
         signOutCircleButton.layer.cornerRadius = 8
@@ -157,10 +174,11 @@ class CircleHeaderView: UIView {
         circleCategory.text = model?.category
         circleDescription.text = model?.descriptionField
     }
-    public func buttonHidden(followButton: Bool, registerButton: Bool, signOutButton: Bool) {
+    public func buttonHidden(followButton: Bool, registerButton: Bool, signOutButton: Bool, unfollowButton: Bool) {
         self.followButton.isHidden = followButton
         self.registerButton.isHidden = registerButton
         self.signOutCircleButton.isHidden = signOutButton
+        self.unfollowButton.isHidden = unfollowButton
     }
     
     //MARK: - Button Actions
@@ -174,5 +192,8 @@ class CircleHeaderView: UIView {
     
     @objc private func didTapsignOutCircleButton() {
         delegate?.didTapsignOutCircleButton()
+    }
+    @objc private func didTapUnFollowButton() {
+        delegate?.didTapUnFollowButton()
     }
 }

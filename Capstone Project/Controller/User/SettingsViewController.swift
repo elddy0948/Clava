@@ -12,11 +12,13 @@ class SettingsViewController: UIViewController {
     private let logoutButton: UIButton = {
         let button = UIButton()
         button.setTitle("LogOut", for: .normal)
+        button.setTitleColor(.label, for: .normal)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         view.addSubview(logoutButton)
         logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
 
@@ -32,5 +34,6 @@ class SettingsViewController: UIViewController {
         let vc = LoginViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
     }
 }

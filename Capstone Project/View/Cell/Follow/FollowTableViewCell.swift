@@ -5,6 +5,7 @@
 //  Created by 김호준 on 2020/10/20.
 //
 
+import SDWebImage
 import UIKit
 
 class FollowTableViewCell: UITableViewCell {
@@ -51,5 +52,6 @@ class FollowTableViewCell: UITableViewCell {
     //MARK: - public
     public func configure(with model: Circle?) {
         self.circleName.text = model?.name
+        self.circlePhoto.sd_setImage(with: URL(string: model?.circleProfilePhoto ?? ""), completed: nil)
     }
 }

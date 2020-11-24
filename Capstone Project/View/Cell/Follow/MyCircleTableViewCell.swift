@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MyCircleTableViewCell: UITableViewCell {
     static let reuseIdentifier = "MyCircleTableViewCell"
@@ -51,5 +52,6 @@ class MyCircleTableViewCell: UITableViewCell {
     //MARK: - public
     public func configure(with model: Circle?) {
         self.circleName.text = model?.name
+        self.circlePhoto.sd_setImage(with: URL(string: model?.circleProfilePhoto ?? ""), completed: nil)
     }
 }
