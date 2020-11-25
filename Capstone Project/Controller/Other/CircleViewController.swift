@@ -59,6 +59,7 @@ class CircleViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        circleFound()
         tableView.reloadData()
     }
     
@@ -67,6 +68,10 @@ class CircleViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self, action: #selector(didTapAddButton))
         self.circleID = circleID
+        circleFound()
+    }
+    
+    private func circleFound() {
         let urlToRequest = "http://3.35.240.252:8080/circles/found"
         let parameters: Parameters = [
             "circleId" : "\(circleID)"
@@ -162,6 +167,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                 fatalError("FeedActionTableViewCell")
             }
             cell.configure(with: circlePosts[indexPath.section / 5])
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -291,7 +297,7 @@ extension CircleViewController: CircleHeaderViewDelegate {
                    }
     }
     func didTapUnFollowButton() {
-//         "/delete/follower"
+        //         "/delete/follower"
         let requestURL = "http://3.35.240.252:8080/delete/follower"
         guard let userToken = UserDefaults.standard.string(forKey: "userToken") else {
             fatalError("Can't get user Token")
@@ -312,5 +318,54 @@ extension CircleViewController: CircleHeaderViewDelegate {
                                                            signOutButton: true, unfollowButton: true)
                     }
                    }
+    }
+}
+
+extension CircleViewController: FeedActionTableViewCellDelegate {
+    func didTapLikeButton(with post: Post?, button: UIButton?, tableviewCell: FeedActionTableViewCell) {
+        if tableviewCell.didLikePost {
+            //delete
+            let deleteURL = "http://3.35.240.252:8080/delete/like"
+            guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
+                fatalError("Can't get accessToken")
+            }
+            let parameters: Parameters = [
+                "deleteId": post?.id ?? 0
+            ]
+            AF.request(deleteURL, method: .delete,
+                       parameters: parameters,
+                       encoding: JSONEncoding.default, headers: [
+                        "Authorization" : "Bearer \(accessToken)"
+                       ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                        switch response.result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(_):
+                            button?.setImage(UIImage(systemName: "flame"), for: .normal)
+                            tableviewCell.didLikePost = false
+                        }
+                       }
+        }
+        else {
+            //add
+            let likeURL = "http://3.35.240.252:8080/posts/\(post?.id ?? 0)/like"
+            guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
+                fatalError("Can't get accessToken")
+            }
+            AF.request(likeURL, method: .post,
+                       parameters: nil,
+                       encoding: JSONEncoding.default, headers: [
+                        "Authorization" : "Bearer \(accessToken)"
+                       ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                        switch response.result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(_):
+                            button?.setImage(UIImage(systemName: "flame.fill"), for: .normal)
+                            tableviewCell.didLikePost = true
+                        }
+                       }
+            
+        }
     }
 }
