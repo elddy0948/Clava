@@ -37,7 +37,7 @@ class FeedCommentTableViewCell: UITableViewCell {
         let button = UIButton()
         button.backgroundColor = .none
         button.setTitle("Show Comment", for: .normal)
-        button.setTitleColor(.label, for: .normal)
+        button.setTitleColor(.link, for: .normal)
         return button
     }()
     

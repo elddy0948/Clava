@@ -33,6 +33,7 @@ class HomeVC: UIViewController {
         super.viewWillAppear(animated)
         circlesForFeed = [Circle]()
         postsForFeed = [Post]()
+        self.getFollowAndMyCircles()
     }
     
     override func viewDidLoad() {
@@ -265,7 +266,7 @@ extension HomeVC: FeedHeaderTableViewCellDelegate {
                     case .failure(let error):
                         print(error)
                     case .success(_):
-                        self.feedTableView.reloadData()
+                        self.viewWillAppear(true)
                     }
                    }
     }

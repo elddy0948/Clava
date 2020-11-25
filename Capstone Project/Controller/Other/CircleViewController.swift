@@ -59,14 +59,14 @@ class CircleViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        circleFound()
+        configure(with: self.circleID)
         tableView.reloadData()
     }
     
     public func configure(with circleID: Int) {
         //현재 로그인 한 유저가 관리자면 수정 버튼 추가
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self, action: #selector(didTapAddButton))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+//                                                            target: self, action: #selector(didTapAddButton))
         self.circleID = circleID
         circleFound()
     }
@@ -101,6 +101,9 @@ class CircleViewController: UIViewController {
                             //이미 동아리 멤버라면
                             if member.email == email {
                                 self.circleHeaderView.buttonHidden(followButton: true, registerButton: true, signOutButton: false, unfollowButton: true)
+                                self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                                    barButtonSystemItem: .add,
+                                    target: self, action: #selector(self.didTapAddButton))
                             }
                         }
                         for member in self.circleModel?.circleFollower ?? [User]() {
@@ -270,6 +273,7 @@ extension CircleViewController: CircleHeaderViewDelegate {
                     case .success(_):
                         self.circleHeaderView.buttonHidden(followButton: true, registerButton: true,
                                                            signOutButton: false, unfollowButton: true)
+                        self.viewWillAppear(true)
                     }
                    }
     }
@@ -289,10 +293,11 @@ extension CircleViewController: CircleHeaderViewDelegate {
                     switch response.result {
                     case .failure(let error):
                         print(error)
-                    case .success(let data):
-                        print(data)
+                    case .success(_):
                         self.circleHeaderView.buttonHidden(followButton: false, registerButton: false,
                                                            signOutButton: true, unfollowButton: true)
+                        self.navigationItem.rightBarButtonItem = nil
+                        self.viewWillAppear(true)
                     }
                    }
     }
@@ -316,6 +321,7 @@ extension CircleViewController: CircleHeaderViewDelegate {
                     case .success(_):
                         self.circleHeaderView.buttonHidden(followButton: false, registerButton: false,
                                                            signOutButton: true, unfollowButton: true)
+                        self.viewWillAppear(true)
                     }
                    }
     }
