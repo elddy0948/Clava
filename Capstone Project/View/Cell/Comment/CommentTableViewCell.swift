@@ -10,15 +10,10 @@ import UIKit
 class CommentTableViewCell: UITableViewCell {
     static let reuseIdentifier = "CommentTableViewCell"
     
-    private let profileImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .red
-        return imageView
-    }()
-    
     private var userName: UILabel = {
         let label = UILabel()
         label.textColor = .label
+        label.font = .boldSystemFont(ofSize: 15)
         return label
     }()
     
@@ -32,7 +27,6 @@ class CommentTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(profileImage)
         contentView.addSubview(userName)
         contentView.addSubview(comment)
     }
@@ -43,18 +37,13 @@ class CommentTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        //Profile Image
-        profileImage.frame = CGRect(x: 0, y: 2, width: 30, height: 30)
-        profileImage.layer.masksToBounds = true
-        profileImage.clipsToBounds = true
-        profileImage.layer.cornerRadius = 30 / 2
         
         //User Name
-        userName.frame = CGRect(x: profileImage.right + 4, y: 2, width: 100, height: 30)
+        userName.frame = CGRect(x: 4, y: 2, width: 100, height: 30)
         
         //Comment
         comment.frame = CGRect(x: userName.right + 4, y: 0,
-                               width: (contentView.width - profileImage.width - userName.width - 12), height: contentView.height)
+                               width: (contentView.width - userName.width - 12), height: contentView.height)
     }
     public func configure(with comment: Comment) {
         userName.text = comment.author

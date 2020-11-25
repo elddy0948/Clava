@@ -33,10 +33,34 @@ class HomeVC: UIViewController {
         super.viewWillAppear(animated)
         circlesForFeed = [Circle]()
         postsForFeed = [Post]()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        authUser()
+        feedTableView.separatorStyle = .none
+        view.addSubview(feedTableView)
+        view.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"),
+                                                            style: .plain, target: self, action: #selector(didTapReloadButton))
+        feedTableView.delegate = self
+        feedTableView.dataSource = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        feedTableView.frame = view.bounds
+    }
+    
+    @objc private func didTapReloadButton() {
+        self.authUser()
+    }
+    
+    private func authUser() {
         let userEmail = UserDefaults.standard.string(forKey: "email")
         let userPassword = UserDefaults.standard.string(forKey: "password")
         
-        if userEmail == nil || userPassword == nil {
+        if userEmail == "" || userPassword == "" || userEmail == nil || userPassword == nil {
             let vc = LoginViewController()
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
@@ -69,6 +93,7 @@ class HomeVC: UIViewController {
                        }
         }
     }
+    
     private func getFollowAndMyCircles() {
         guard let userNickname = UserDefaults.standard.string(forKey: "userNickname") else {
             fatalError("Can't get userNickname")
@@ -93,6 +118,7 @@ class HomeVC: UIViewController {
                     case .success(let data):
                         let userJSON = JSON(data)
                         self.user = User(fromJson: userJSON)
+                        UserDefaults.standard.set(self.user?.id, forKey: "userID")
                         self.circlesForFeed = (self.user?.followCircle ?? [Circle]()) + (self.user?.myCircle ?? [Circle]())
                         for circle in self.circlesForFeed {
                             for post in circle.circlePosts {
@@ -103,19 +129,6 @@ class HomeVC: UIViewController {
                         self.feedTableView.reloadData()
                     }
                    }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        feedTableView.separatorStyle = .none
-        view.addSubview(feedTableView)
-        view.backgroundColor = .systemBackground
-        feedTableView.delegate = self
-        feedTableView.dataSource = self
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        feedTableView.frame = view.bounds
     }
 }
 
@@ -158,7 +171,9 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedPostTableViewCell else {
                 fatalError("FeedPostTableViewCell")
             }
-            cell.configure(model: postsForFeed[indexPath.section / 4])
+            if postsForFeed.count >= indexPath.section / 4 {
+                cell.configure(model: postsForFeed[indexPath.section / 4])
+            }
             cell.selectionStyle = .none
             return cell
         }
@@ -167,7 +182,10 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedActionTableViewCell else {
                 fatalError("FeedActionTableViewCell")
             }
-            
+            if postsForFeed.count >= indexPath.section / 4 {
+                cell.configure(with: postsForFeed[indexPath.section / 4])
+            }
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -176,7 +194,9 @@ extension HomeVC: UITableViewDataSource {
                                                                for: indexPath) as? FeedCommentTableViewCell else {
                 fatalError("FeedCommentTableViewCell Error")
             }
-            cell.configure(with: postsForFeed[indexPath.section / 4])
+            if postsForFeed.count >= indexPath.section / 4 {
+                cell.configure(with: postsForFeed[indexPath.section / 4])
+            }
             cell.delegate = self
             cell.selectionStyle = .none
             return cell
@@ -258,5 +278,55 @@ extension HomeVC: FeedCommentTableViewCellDelegate {
         vc.configure(comments: comments, post: post)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension HomeVC: FeedActionTableViewCellDelegate {
+    func didTapLikeButton(with post: Post?, button: UIButton?, tableviewCell: FeedActionTableViewCell) {
+        if tableviewCell.didLikePost {
+            //delete
+            let deleteURL = "http://3.35.240.252:8080/delete/like"
+            guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
+                fatalError("Can't get accessToken")
+            }
+            let parameters: Parameters = [
+                "deleteId": post?.id ?? 0
+            ]
+            AF.request(deleteURL, method: .delete,
+                       parameters: parameters,
+                       encoding: JSONEncoding.default, headers: [
+                        "Authorization" : "Bearer \(accessToken)"
+                       ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                        switch response.result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(let data):
+                            print(data)
+                            button?.setImage(UIImage(systemName: "flame"), for: .normal)
+                            tableviewCell.didLikePost = false
+                        }
+                       }
+        }
+        else {
+            //add
+            let likeURL = "http://3.35.240.252:8080/posts/\(post?.id ?? 0)/like"
+            guard let accessToken = UserDefaults.standard.string(forKey: "userToken") else {
+                fatalError("Can't get accessToken")
+            }
+            AF.request(likeURL, method: .post,
+                       parameters: nil,
+                       encoding: JSONEncoding.default, headers: [
+                        "Authorization" : "Bearer \(accessToken)"
+                       ], interceptor: nil, requestModifier: nil).responseJSON { (response) in
+                        switch response.result {
+                        case .failure(let error):
+                            print(error)
+                        case .success(let data):
+                            print(data)
+                            button?.setImage(UIImage(systemName: "flame.fill"), for: .normal)
+                            tableviewCell.didLikePost = true
+                        }
+                       }
+        }
     }
 }

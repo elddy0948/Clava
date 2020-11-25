@@ -17,7 +17,7 @@ import SwiftyJSON
 
 
 class Post : NSObject, NSCoding{
-
+    
     var author : String!
     var circleId : Int!
     var descriptionField : String!
@@ -25,8 +25,9 @@ class Post : NSObject, NSCoding{
     var likeNum : Int!
     var postComment : [Comment]!
     var postPhoto : [Photo]!
+    var postLike : [Like]!
     var writeDate : String!
-
+    
     init(fromJson json: JSON!){
         if json.isEmpty{
             return
@@ -46,9 +47,15 @@ class Post : NSObject, NSCoding{
         for postPhotoJson in postPhotoArray{
             postPhoto.append(Photo(fromJson: postPhotoJson))
         }
+        postLike = [Like]()
+        let postLikeArray = json["postLike"].arrayValue
+        for postLikeJson in postLikeArray{
+            let value = Like(fromJson: postLikeJson)
+            postLike.append(value)
+        }
         writeDate = json["write_Date"].stringValue
     }
-
+    
     /**
      * Returns all the available property values in the form of [String:Any] object where the key is the approperiate json key and the value is the value of the corresponding property
      */
@@ -74,14 +81,25 @@ class Post : NSObject, NSCoding{
             dictionary["postComment"] = postComment
         }
         if postPhoto != nil{
-            dictionary["postPhoto"] = postPhoto
+            var dictionaryElements = [[String:Any]]()
+            for postPhotoElement in postPhoto {
+                dictionaryElements.append(postPhotoElement.toDictionary())
+            }
+            dictionary["postPhoto"] = dictionaryElements
+        }
+        if postLike != nil{
+            var dictionaryElements = [[String:Any]]()
+            for postLikeElement in postLike {
+                dictionaryElements.append(postLikeElement.toDictionary())
+            }
+            dictionary["postLike"] = dictionaryElements
         }
         if writeDate != nil{
             dictionary["write_Date"] = writeDate
         }
         return dictionary
     }
-
+    
     @objc required init(coder aDecoder: NSCoder)
     {
         author = aDecoder.decodeObject(forKey: "author") as? String
@@ -91,9 +109,10 @@ class Post : NSObject, NSCoding{
         likeNum = aDecoder.decodeObject(forKey: "likeNum") as? Int
         postComment = aDecoder.decodeObject(forKey: "postComment") as? [Comment]
         postPhoto = aDecoder.decodeObject(forKey: "postPhoto") as? [Photo]
+        postLike = aDecoder.decodeObject(forKey: "postLike") as? [Like]
         writeDate = aDecoder.decodeObject(forKey: "write_Date") as? String
     }
-
+    
     func encode(with aCoder: NSCoder)
     {
         if author != nil{
@@ -119,6 +138,9 @@ class Post : NSObject, NSCoding{
         }
         if writeDate != nil{
             aCoder.encode(writeDate, forKey: "write_Date")
+        }
+        if postLike != nil{
+            aCoder.encode(postLike, forKey: "postLike")
         }
     }
 }

@@ -119,12 +119,12 @@ class PostingViewController: UIViewController {
             fatalError("Can't get accessToken")
         }
         for image in uiimageArr {
-            guard let data = image.sd_imageData() else {
+            guard let data = image.jpegData(compressionQuality: CGFloat(0.5)) else {
                 fatalError("Can't Create pngData")
             }
             
             AF.upload(multipartFormData: { multipartFormData in
-                multipartFormData.append(data, withName: "data",fileName: "file2.png", mimeType: "image/png")
+                multipartFormData.append(data, withName: "data",fileName: "file2.jpeg", mimeType: "image/jpeg")
             },
             to: requestURL, method: .post, headers: [
                 "Authorization" : "Bearer \(accessToken)"

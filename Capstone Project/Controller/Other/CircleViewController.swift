@@ -59,11 +59,13 @@ class CircleViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        tableView.reloadData()
     }
     
     public func configure(with circleID: Int) {
         //현재 로그인 한 유저가 관리자면 수정 버튼 추가
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self, action: #selector(didTapAddButton))
         self.circleID = circleID
         let urlToRequest = "http://3.35.240.252:8080/circles/found"
         let parameters: Parameters = [
@@ -159,6 +161,7 @@ extension CircleViewController: UITableViewDelegate, UITableViewDataSource {
                                                            for: indexPath) as? FeedActionTableViewCell else {
                 fatalError("FeedActionTableViewCell")
             }
+            cell.configure(with: circlePosts[indexPath.section / 5])
             cell.selectionStyle = .none
             return cell
         }

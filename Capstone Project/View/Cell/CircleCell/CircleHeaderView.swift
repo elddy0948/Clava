@@ -109,6 +109,20 @@ class CircleHeaderView: UIView {
         return textView
     }()
     
+    private let followerLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .label
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let memberLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .label
+        label.textAlignment = .center
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
@@ -121,6 +135,8 @@ class CircleHeaderView: UIView {
         self.addSubview(registerButton)
         self.addSubview(signOutCircleButton)
         self.addSubview(unfollowButton)
+        self.addSubview(followerLabel)
+        self.addSubview(memberLabel)
         unfollowButton.isHidden = true
         signOutCircleButton.isHidden = true
     }
@@ -153,7 +169,8 @@ class CircleHeaderView: UIView {
         followButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         registerButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         
-        unfollowButton.frame = CGRect(x: 8, y: heightFromLabel, width: buttonWidth, height: subviewsHeight)
+        unfollowButton.frame = CGRect(x: 8, y: heightFromLabel,
+                                      width: buttonWidth, height: subviewsHeight)
         unfollowButton.layer.masksToBounds = true
         unfollowButton.layer.cornerRadius = 8
         unfollowButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
@@ -163,8 +180,14 @@ class CircleHeaderView: UIView {
         signOutCircleButton.layer.cornerRadius = 8
         signOutCircleButton.titleLabel?.font = .boldSystemFont(ofSize: 20)
         
-        circleDescription.frame = CGRect(x: 0, y: followButton.bottom + 8,
-                                         width: self.width, height: self.height - circleImageView.height - 96)
+        followerLabel.frame = CGRect(x: 0, y: followButton.bottom + 8,
+                                     width: self.width / 2, height: 30)
+        memberLabel.frame = CGRect(x: followerLabel.right, y: followButton.bottom + 8,
+                                   width: self.width / 2, height: 30)
+        
+        circleDescription.frame = CGRect(x: 0, y: followerLabel.bottom + 8,
+                                         width: self.width,
+                                         height: self.height - circleImageView.height - 134)
     }
     
     public func configure(with model: Circle?) {
@@ -173,6 +196,9 @@ class CircleHeaderView: UIView {
         circleBelong.text = model?.organization
         circleCategory.text = model?.category
         circleDescription.text = model?.descriptionField
+        followerLabel.text = "팔로워 : \(model?.circleFollower.count ?? 0)"
+        memberLabel.text = "회원 수 : \(model?.circleMember.count ?? 0)"
+        
     }
     public func buttonHidden(followButton: Bool, registerButton: Bool, signOutButton: Bool, unfollowButton: Bool) {
         self.followButton.isHidden = followButton
